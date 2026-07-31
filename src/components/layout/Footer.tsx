@@ -25,10 +25,10 @@ export const Footer: React.FC = () => {
           <div className="space-y-4">
             <Link href="/" className="flex items-center gap-2.5">
               <div className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-white font-serif text-xl font-bold shadow-luxury">
-                L
+                R
               </div>
               <span className="font-serif text-2xl font-bold tracking-tight text-white">
-                Luxe<span className="text-primary-light">Shade</span>
+                Royal <span className="text-primary-light">Capital</span>
               </span>
             </Link>
             <p className="text-gray-300 text-sm leading-relaxed">
@@ -105,7 +105,7 @@ export const Footer: React.FC = () => {
               </li>
               <li className="flex items-center gap-3">
                 <Mail className="w-4 h-4 text-primary-light shrink-0" />
-                <span>consult@luxeshadeblinds.com</span>
+                <span>consult@royalcapitalblinds.com</span>
               </li>
               <li className="flex items-start gap-3 pt-2">
                 <Clock className="w-4 h-4 text-primary-light shrink-0 mt-0.5" />
@@ -146,7 +146,7 @@ export const Footer: React.FC = () => {
 
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between text-xs text-gray-400 gap-4">
-          <p>© {new Date().getFullYear()} LuxeShade Blinds & Curtains. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} Royal Capital Blinds & Curtains. All rights reserved.</p>
           <div className="flex items-center gap-6">
             <span className="hover:underline cursor-pointer">Privacy Policy</span>
             <span className="hover:underline cursor-pointer">Terms of Service</span>

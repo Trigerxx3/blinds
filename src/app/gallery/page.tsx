@@ -20,7 +20,7 @@ export default function GalleryPage() {
             Installation Gallery
           </h1>
           <p className="text-gray-600 text-sm sm:text-base leading-relaxed">
-            Explore real residential and luxury commercial projects crafted and installed by LuxeShade. Filter by room category to draw inspiration for your space.
+            Explore real residential and luxury commercial projects crafted and installed by Royal Capital. Filter by room category to draw inspiration for your space.
           </p>
         </div>
 

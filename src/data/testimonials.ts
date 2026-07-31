@@ -18,7 +18,7 @@ export const testimonialsData: Testimonial[] = [
     role: 'Lead Architect',
     location: 'Sterling & Co Interiors',
     rating: 5,
-    text: 'As an interior designer, I demand exact millimetric precision and premium textiles. LuxeShade has delivered on over 12 commercial office and residential villa projects without a single delay. Their wooden venetians are unmatched.',
+    text: 'As an interior designer, I demand exact millimetric precision and premium textiles. Royal Capital has delivered on over 12 commercial office and residential villa projects without a single delay. Their wooden venetians are unmatched.',
     avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop',
     productPurchased: 'Handcrafted Basswood Venetian Blinds',
     date: '1 month ago'

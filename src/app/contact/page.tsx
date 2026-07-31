@@ -25,7 +25,7 @@ export default function ContactPage() {
   };
 
   const whatsappNumber = '18005557890';
-  const defaultMsg = encodeURIComponent("Hello LuxeShade! I would like to make an inquiry regarding your custom blinds and curtains.");
+  const defaultMsg = encodeURIComponent("Hello Royal Capital! I would like to make an inquiry regarding your custom blinds and curtains.");
 
   return (
     <div className="py-16 md:py-24 bg-secondary min-h-screen">
@@ -75,7 +75,7 @@ export default function ContactPage() {
               <Mail className="w-5 h-5" />
             </div>
             <h3 className="font-bold text-accent text-sm">Email Consultation</h3>
-            <p className="text-xs text-gray-500">consult@luxeshadeblinds.com</p>
+            <p className="text-xs text-gray-500">consult@royalcapitalblinds.com</p>
             <span className="text-xs font-semibold text-primary block pt-1">Responds in &lt; 2 hrs</span>
           </div>
 
@@ -225,7 +225,7 @@ export default function ContactPage() {
             {/* Styled Map Container */}
             <div className="relative aspect-[4/3] rounded-3xl overflow-hidden shadow-card border border-warmGrey bg-gray-200">
               <iframe
-                title="LuxeShade Showroom Location"
+                title="Royal Capital Showroom Location"
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.215707164102!2d-73.98657868459418!3d40.74844097932847!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c259a9b3117469%3A0xd134e199a405a163!2sEmpire%20State%20Building!5e0!3m2!1sen!2sus!4v1629837262019!5m2!1sen!2sus"
                 width="100%"
                 height="100%"

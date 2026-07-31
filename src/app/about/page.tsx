@@ -39,7 +39,7 @@ export default function AboutPage() {
               Crafting Window Perfection Since 2011
             </h1>
             <p className="text-gray-600 text-base leading-relaxed font-light">
-              LuxeShade was born from a simple conviction: custom window treatments should combine architectural elegance, effortless daylight control, and white-glove personal service.
+              Royal Capital was born from a simple conviction: custom window treatments should combine architectural elegance, effortless daylight control, and white-glove personal service.
             </p>
             <p className="text-gray-600 text-sm leading-relaxed">
               What started as a small drapery atelier has grown into a premier window solutions provider trusted by homeowners, interior designers, five-star hotels, and commercial developments.
@@ -66,7 +66,7 @@ export default function AboutPage() {
               {/* eslint-disable-next-html-element-access */}
               <img
                 src="https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=1200&auto=format&fit=crop"
-                alt="LuxeShade Atelier Workshop"
+                alt="Royal Capital Atelier Workshop"
                 className="w-full h-full object-cover"
               />
             </div>
@@ -135,7 +135,7 @@ export default function AboutPage() {
       {/* Trust Metrics */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 bg-accent text-white p-10 md:p-16 rounded-3xl shadow-luxury space-y-8 text-center">
         <h2 className="font-serif text-3xl sm:text-4xl font-bold max-w-2xl mx-auto">
-          Why Over 10,000 Clients Trust LuxeShade
+          Why Over 10,000 Clients Trust Royal Capital
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-left">
           <div className="bg-white/10 p-5 rounded-2xl border border-white/10 space-y-2">

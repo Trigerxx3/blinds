@@ -14,7 +14,7 @@ export const Testimonials: React.FC = () => {
             Trusted by Thousands of Clients
           </h2>
           <p className="text-gray-500 text-sm">
-            Read real feedback from homeowners, interior designers, and hotel directors who transformed their windows with LuxeShade.
+            Read real feedback from homeowners, interior designers, and hotel directors who transformed their windows with Royal Capital.
           </p>
         </div>
 

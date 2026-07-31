@@ -23,7 +23,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <title>LuxeShade | Premium Custom Blinds & Curtains</title>
+        <title>Royal Capital | Premium Custom Blinds & Curtains</title>
         <meta
           name="description"
           content="Custom-made window blinds, roller shades, motorized blinds, basswood venetians, and blackout curtains for homes, offices, hotels, and luxury commercial spaces."

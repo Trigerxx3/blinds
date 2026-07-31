@@ -58,11 +58,11 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenConsultation }) => {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2.5 group">
             <div className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-white font-serif text-xl font-bold shadow-luxury group-hover:scale-105 transition-transform">
-              L
+              R
             </div>
             <div className="flex flex-col">
               <span className="font-serif text-2xl font-bold tracking-tight text-accent leading-none">
-                Luxe<span className="text-primary">Shade</span>
+                Royal <span className="text-primary">Capital</span>
               </span>
               <span className="text-[10px] tracking-[0.25em] uppercase text-gray-500 font-medium mt-0.5">
                 Blinds & Curtains
