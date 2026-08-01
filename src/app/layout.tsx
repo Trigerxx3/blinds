@@ -7,6 +7,7 @@ import { Footer } from '@/components/layout/Footer';
 import { FloatingActions } from '@/components/ui/FloatingActions';
 import { ConsultationModal } from '@/components/ui/ConsultationModal';
 import { StoreProvider } from '@/context/StoreContext';
+import { AdminHotkey } from '@/components/ui/AdminHotkey';
 
 export default function RootLayout({
   children,
@@ -42,6 +43,7 @@ export default function RootLayout({
           <Footer />
 
           <FloatingActions onOpenConsultation={() => handleOpenConsultation()} />
+          <AdminHotkey />
 
           <ConsultationModal
             isOpen={consultationModalOpen}
