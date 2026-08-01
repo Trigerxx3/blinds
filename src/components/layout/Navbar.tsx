@@ -33,6 +33,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenConsultation }) => {
     { name: 'About Us', href: '/about' },
     { name: 'Gallery', href: '/gallery' },
     { name: 'Contact', href: '/contact' },
+    { name: 'Admin', href: '/admin' },
   ];
 
   return (

@@ -3,10 +3,11 @@
 import React, { useState, useMemo } from 'react';
 import Link from 'next/link';
 import { Search, Filter, Star, Eye, Sparkles } from 'lucide-react';
-import { productsData } from '@/data/products';
+import { useStore } from '@/context/StoreContext';
 import { ProductCategory, RoomCategory } from '@/types';
 
 export default function CollectionsPage() {
+  const { products } = useStore();
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [selectedRoom, setSelectedRoom] = useState<string>('All');
   const [searchQuery, setSearchQuery] = useState('');
@@ -30,7 +31,7 @@ export default function CollectionsPage() {
   const rooms = ['All', 'Living Room', 'Bedroom', 'Kitchen', 'Office', 'Hotel', 'Commercial'];
 
   const filteredProducts = useMemo(() => {
-    return productsData.filter((product) => {
+    return products.filter((product) => {
       const matchesCategory = selectedCategory === 'All' || product.category === selectedCategory;
       const matchesRoom = selectedRoom === 'All' || product.recommendedRooms.includes(selectedRoom as RoomCategory);
       const matchesSearch = searchQuery === '' || 

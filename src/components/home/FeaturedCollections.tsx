@@ -3,10 +3,11 @@
 import React from 'react';
 import Link from 'next/link';
 import { ArrowRight, Star, Eye } from 'lucide-react';
-import { productsData } from '@/data/products';
+import { useStore } from '@/context/StoreContext';
 
 export const FeaturedCollections: React.FC = () => {
-  const featured = productsData.filter((p) => p.isFeatured).slice(0, 6);
+  const { products } = useStore();
+  const featured = products.filter((p) => p.isFeatured).slice(0, 6);
 
   return (
     <section className="py-24 bg-white">

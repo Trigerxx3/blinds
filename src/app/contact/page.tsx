@@ -2,8 +2,10 @@
 
 import React, { useState } from 'react';
 import { Phone, Mail, MapPin, Clock, MessageCircle, Send, CheckCircle2, Sparkles } from 'lucide-react';
+import { useStore } from '@/context/StoreContext';
 
 export default function ContactPage() {
+  const { addInquiry } = useStore();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -18,10 +20,18 @@ export default function ContactPage() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+    addInquiry({
+      name: formData.name,
+      email: formData.email,
+      phone: formData.phone,
+      productInterest: formData.subject,
+      roomTypes: ['General Window Inquiry'],
+      message: formData.message,
+    });
     setTimeout(() => {
       setLoading(false);
       setSubmitted(true);
-    }, 800);
+    }, 600);
   };
 
   const whatsappNumber = '18005557890';

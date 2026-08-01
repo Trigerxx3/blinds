@@ -88,6 +88,7 @@ export interface Testimonial {
 }
 
 export interface ConsultationFormData {
+  id?: string;
   name: string;
   email: string;
   phone: string;
@@ -97,4 +98,6 @@ export interface ConsultationFormData {
   roomTypes: string[];
   productInterest: string;
   message?: string;
+  createdAt?: string;
+  status?: 'New' | 'Contacted' | 'Completed';
 }

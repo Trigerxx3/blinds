@@ -71,6 +71,9 @@ export const Footer: React.FC = () => {
               <li>
                 <Link href="/contact" className="hover:text-primary-light transition-colors">Contact & Consultation</Link>
               </li>
+              <li>
+                <Link href="/admin" className="text-primary-light hover:underline transition-colors font-medium">Admin Portal 🔒</Link>
+              </li>
             </ul>
           </div>
 

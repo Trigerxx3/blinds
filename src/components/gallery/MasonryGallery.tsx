@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { GalleryItem, RoomCategory } from '@/types';
-import { galleryItemsData } from '@/data/galleryData';
+import { useStore } from '@/context/StoreContext';
 import { Maximize2, MapPin } from 'lucide-react';
 
 interface MasonryGalleryProps {
@@ -10,13 +10,14 @@ interface MasonryGalleryProps {
 }
 
 export const MasonryGallery: React.FC<MasonryGalleryProps> = ({ onSelectItem }) => {
+  const { galleryItems } = useStore();
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
 
   const categories = ['All', 'Living Room', 'Bedroom', 'Kitchen', 'Office', 'Hotel', 'Commercial'];
 
   const filteredItems = selectedCategory === 'All'
-    ? galleryItemsData
-    : galleryItemsData.filter((item) => item.category === selectedCategory);
+    ? galleryItems
+    : galleryItems.filter((item) => item.category === selectedCategory);
 
   return (
     <div className="space-y-10">

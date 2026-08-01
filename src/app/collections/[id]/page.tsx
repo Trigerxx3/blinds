@@ -3,15 +3,16 @@
 import React, { useState } from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
-import { productsData } from '@/data/products';
+import { useStore } from '@/context/StoreContext';
 import { Star, ShieldCheck, Calendar, ArrowLeft, Check, Sparkles, Ruler, Sun, RefreshCw } from 'lucide-react';
 import { ConsultationModal } from '@/components/ui/ConsultationModal';
 
 export default function ProductDetailPage() {
   const params = useParams();
   const id = params?.id as string;
+  const { products } = useStore();
 
-  const product = productsData.find((p) => p.id === id) || productsData[0];
+  const product = products.find((p) => p.id === id) || products[0];
 
   const [activeImage, setActiveImage] = useState(product.image);
   const [selectedColor, setSelectedColor] = useState(product.colors[0]);

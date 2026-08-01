@@ -6,6 +6,7 @@ import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { FloatingActions } from '@/components/ui/FloatingActions';
 import { ConsultationModal } from '@/components/ui/ConsultationModal';
+import { StoreProvider } from '@/context/StoreContext';
 
 export default function RootLayout({
   children,
@@ -32,20 +33,22 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.ico" />
       </head>
       <body className="antialiased text-accent bg-white min-h-screen flex flex-col justify-between">
-        <div>
-          <Navbar onOpenConsultation={() => handleOpenConsultation()} />
-          <main>{children}</main>
-        </div>
+        <StoreProvider>
+          <div>
+            <Navbar onOpenConsultation={() => handleOpenConsultation()} />
+            <main>{children}</main>
+          </div>
 
-        <Footer />
+          <Footer />
 
-        <FloatingActions onOpenConsultation={() => handleOpenConsultation()} />
+          <FloatingActions onOpenConsultation={() => handleOpenConsultation()} />
 
-        <ConsultationModal
-          isOpen={consultationModalOpen}
-          onClose={() => setConsultationModalOpen(false)}
-          preselectedProduct={selectedProductForConsultation}
-        />
+          <ConsultationModal
+            isOpen={consultationModalOpen}
+            onClose={() => setConsultationModalOpen(false)}
+            preselectedProduct={selectedProductForConsultation}
+          />
+        </StoreProvider>
       </body>
     </html>
   );

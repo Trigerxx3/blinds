@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { X, Calendar, Check, ShieldCheck, Ruler, User, Mail, Phone, MapPin, Sparkles } from 'lucide-react';
 import { ConsultationFormData } from '@/types';
+import { useStore } from '@/context/StoreContext';
 
 interface ConsultationModalProps {
   isOpen: boolean;
@@ -15,6 +16,8 @@ export const ConsultationModal: React.FC<ConsultationModalProps> = ({
   onClose,
   preselectedProduct = '',
 }) => {
+  const { addInquiry } = useStore();
+
   const [formData, setFormData] = useState<ConsultationFormData>({
     name: '',
     email: '',
@@ -62,10 +65,11 @@ export const ConsultationModal: React.FC<ConsultationModalProps> = ({
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    addInquiry(formData);
     setTimeout(() => {
       setIsSubmitting(false);
       setSubmitted(true);
-    }, 800);
+    }, 600);
   };
 
   const resetAndClose = () => {
