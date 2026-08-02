@@ -6,7 +6,7 @@ import { Product, GalleryItem, ProductCategory, RoomCategory } from '@/types';
 import {
   ShieldCheck, Lock, Plus, Trash2, Edit, Search, X, Check, Eye, Image as ImageIcon,
   Sparkles, Layers, MessageSquare, RefreshCcw, LogOut, LayoutDashboard, Sliders,
-  CheckCircle2, Clock, Filter, ArrowUpRight, TrendingUp, Users, Phone, Mail, MapPin, Settings
+  CheckCircle2, Clock, Filter, ArrowUpRight, TrendingUp, Users, Phone, Mail, MapPin, Upload
 } from 'lucide-react';
 
 export default function AdminPage() {
@@ -36,6 +36,17 @@ export default function AdminPage() {
 
   const [isGalleryModalOpen, setIsGalleryModalOpen] = useState(false);
 
+  // High quality image presets for quick picking
+  const imagePresets = [
+    'https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=1200&auto=format&fit=crop',
+    'https://images.unsplash.com/photo-1540518614846-7ede433c5173?q=80&w=1200&auto=format&fit=crop',
+    'https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?q=80&w=1200&auto=format&fit=crop',
+    'https://images.unsplash.com/photo-1507089947368-19c1da9775ae?q=80&w=1200&auto=format&fit=crop',
+    'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=1200&auto=format&fit=crop',
+    'https://images.unsplash.com/photo-1505691938895-1758d7FEB511?q=80&w=1200&auto=format&fit=crop',
+    'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=1200&auto=format&fit=crop',
+  ];
+
   // Product Form State
   const [productForm, setProductForm] = useState<Partial<Product>>({
     name: '',
@@ -43,13 +54,13 @@ export default function AdminPage() {
     categorySlug: 'roller-blinds',
     shortDescription: '',
     fullDescription: '',
-    priceStartingFrom: 99,
+    priceStartingFrom: 0,
     rating: 4.9,
     reviewsCount: 12,
     isFeatured: true,
     isBestSeller: false,
-    image: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=1200&auto=format&fit=crop',
-    gallery: ['https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=1200&auto=format&fit=crop'],
+    image: imagePresets[0],
+    gallery: [imagePresets[0]],
     colors: [
       { name: 'Pure White', hex: '#FFFFFF' },
       { name: 'Warm Taupe', hex: '#A67C52' },
@@ -73,21 +84,27 @@ export default function AdminPage() {
   const [galleryForm, setGalleryForm] = useState<Partial<GalleryItem>>({
     title: '',
     category: 'Living Room',
-    image: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=1200&auto=format&fit=crop',
+    image: imagePresets[0],
     description: '',
     location: 'Residential Penthouse',
   });
 
-  // High quality image presets for quick picking
-  const imagePresets = [
-    'https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=1200&auto=format&fit=crop',
-    'https://images.unsplash.com/photo-1540518614846-7ede433c5173?q=80&w=1200&auto=format&fit=crop',
-    'https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?q=80&w=1200&auto=format&fit=crop',
-    'https://images.unsplash.com/photo-1507089947368-19c1da9775ae?q=80&w=1200&auto=format&fit=crop',
-    'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=1200&auto=format&fit=crop',
-    'https://images.unsplash.com/photo-1505691938895-1758d7FEB511?q=80&w=1200&auto=format&fit=crop',
-    'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=1200&auto=format&fit=crop',
-  ];
+  // Handler for uploading local image files from PC
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>, isGallery = false) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const base64Data = reader.result as string;
+        if (isGallery) {
+          setGalleryForm((prev) => ({ ...prev, image: base64Data }));
+        } else {
+          setProductForm((prev) => ({ ...prev, image: base64Data, gallery: [base64Data] }));
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
@@ -111,7 +128,7 @@ export default function AdminPage() {
         categorySlug: 'roller-blinds',
         shortDescription: '',
         fullDescription: '',
-        priceStartingFrom: 99,
+        priceStartingFrom: 0,
         rating: 4.9,
         reviewsCount: 8,
         isFeatured: true,
@@ -398,7 +415,7 @@ export default function AdminPage() {
                   <span className="text-xs font-bold uppercase tracking-widest text-primary-light">Catalog Controller</span>
                   <h3 className="font-serif text-2xl font-bold">Dynamic Website Management</h3>
                   <p className="text-xs text-gray-300 max-w-xl">
-                    Add new window treatment designs, change color swatches, update prices, or upload installation photos. All changes sync in real time across the website catalog.
+                    Upload image photos directly from your PC, add new window designs, update color swatches, or manage project installation photos in real time across the site catalog.
                   </p>
                 </div>
 
@@ -492,7 +509,7 @@ export default function AdminPage() {
                 {filteredProducts.map((p) => (
                   <div key={p.id} className="bg-white rounded-3xl border border-warmGrey shadow-card p-5 space-y-4 flex flex-col justify-between hover:shadow-luxury transition-all">
                     <div className="flex gap-4 items-start">
-                      <div className="w-24 h-20 rounded-2xl overflow-hidden bg-gray-100 shrink-0">
+                      <div className="w-24 h-20 rounded-2xl overflow-hidden bg-gray-100 shrink-0 border border-gray-200">
                         {/* eslint-disable-next-html-element-access */}
                         <img src={p.image} alt={p.name} className="w-full h-full object-cover" />
                       </div>
@@ -554,7 +571,7 @@ export default function AdminPage() {
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {galleryItems.map((item) => (
                   <div key={item.id} className="bg-white rounded-3xl overflow-hidden border border-warmGrey shadow-card p-4 space-y-3">
-                    <div className="relative aspect-[4/3] rounded-2xl overflow-hidden bg-gray-100">
+                    <div className="relative aspect-[4/3] rounded-2xl overflow-hidden bg-gray-100 border border-gray-200">
                       {/* eslint-disable-next-html-element-access */}
                       <img src={item.image} alt={item.title} className="w-full h-full object-cover" />
                       <span className="absolute top-2 left-2 bg-accent/80 text-white text-[10px] font-semibold px-2.5 py-0.5 rounded-full">
@@ -727,17 +744,6 @@ export default function AdminPage() {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-semibold text-accent mb-1">Starting Price ($) *</label>
-                  <input
-                    type="number"
-                    required
-                    value={productForm.priceStartingFrom}
-                    onChange={(e) => setProductForm({ ...productForm, priceStartingFrom: Number(e.target.value) })}
-                    className="w-full px-3.5 py-2 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
-                  />
-                </div>
-
-                <div>
                   <label className="block text-xs font-semibold text-accent mb-1">Opacity Level</label>
                   <select
                     value={productForm.opacity}
@@ -750,31 +756,88 @@ export default function AdminPage() {
                     <option value="100% Blackout">100% Blackout</option>
                   </select>
                 </div>
+
+                <div>
+                  <label className="block text-xs font-semibold text-accent mb-1">Material Composition</label>
+                  <input
+                    type="text"
+                    placeholder="e.g. 100% Belgian Woven Linen"
+                    value={productForm.material}
+                    onChange={(e) => setProductForm({ ...productForm, material: e.target.value })}
+                    className="w-full px-3.5 py-2 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+                  />
+                </div>
               </div>
 
-              <div>
-                <label className="block text-xs font-semibold text-accent mb-1">Primary Image URL</label>
-                <input
-                  type="url"
-                  required
-                  value={productForm.image}
-                  onChange={(e) => setProductForm({ ...productForm, image: e.target.value, gallery: [e.target.value] })}
-                  className="w-full px-3.5 py-2 rounded-xl border border-gray-200 text-xs focus:outline-none focus:ring-2 focus:ring-primary mb-2"
-                />
-                <span className="text-[10px] text-gray-400 font-semibold block mb-1">Or Select High-Res Preset Image:</span>
-                <div className="flex gap-2 overflow-x-auto pb-1">
-                  {imagePresets.map((preset, idx) => (
-                    <button
-                      type="button"
-                      key={idx}
-                      onClick={() => setProductForm({ ...productForm, image: preset, gallery: [preset] })}
-                      className={`w-14 h-12 rounded-lg overflow-hidden border-2 shrink-0 ${productForm.image === preset ? 'border-primary ring-2 ring-primary/30' : 'border-gray-200'}`}
-                    >
-                      {/* eslint-disable-next-html-element-access */}
-                      <img src={preset} alt="preset" className="w-full h-full object-cover" />
-                    </button>
-                  ))}
+              {/* DUAL IMAGE INPUT: FILE UPLOAD FROM PC OR URL OR PRESET */}
+              <div className="space-y-3 bg-secondary/50 p-4 rounded-2xl border border-gray-200">
+                <label className="block text-xs font-bold text-accent uppercase tracking-wider">
+                  Model Image Source
+                </label>
+
+                {/* Option 1: File Upload from PC */}
+                <div>
+                  <span className="text-[11px] font-semibold text-gray-600 block mb-1">
+                    1. Upload File from PC:
+                  </span>
+                  <label className="flex items-center justify-center gap-2 border-2 border-dashed border-primary/40 hover:border-primary bg-white p-3 rounded-xl cursor-pointer text-xs font-semibold text-primary transition-all">
+                    <Upload className="w-4 h-4" />
+                    <span>Choose Image File from PC</span>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={(e) => handleFileUpload(e, false)}
+                      className="hidden"
+                    />
+                  </label>
                 </div>
+
+                {/* Option 2: Paste Web URL */}
+                <div>
+                  <span className="text-[11px] font-semibold text-gray-600 block mb-1">
+                    2. Or Paste Image Web URL:
+                  </span>
+                  <input
+                    type="url"
+                    placeholder="https://..."
+                    value={productForm.image}
+                    onChange={(e) => setProductForm({ ...productForm, image: e.target.value, gallery: [e.target.value] })}
+                    className="w-full px-3.5 py-2 rounded-xl border border-gray-200 text-xs focus:outline-none focus:ring-2 focus:ring-primary bg-white"
+                  />
+                </div>
+
+                {/* Option 3: Presets */}
+                <div>
+                  <span className="text-[11px] font-semibold text-gray-600 block mb-1">
+                    3. Or Choose High-Res Preset Image:
+                  </span>
+                  <div className="flex gap-2 overflow-x-auto pb-1">
+                    {imagePresets.map((preset, idx) => (
+                      <button
+                        type="button"
+                        key={idx}
+                        onClick={() => setProductForm({ ...productForm, image: preset, gallery: [preset] })}
+                        className={`w-14 h-12 rounded-lg overflow-hidden border-2 shrink-0 ${productForm.image === preset ? 'border-primary ring-2 ring-primary/30' : 'border-gray-200'}`}
+                      >
+                        {/* eslint-disable-next-html-element-access */}
+                        <img src={preset} alt="preset" className="w-full h-full object-cover" />
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Selected Image Thumbnail Preview */}
+                {productForm.image && (
+                  <div className="pt-2 border-t border-gray-200 flex items-center gap-3">
+                    <div className="w-16 h-12 rounded-lg overflow-hidden border border-gray-300 shrink-0 bg-gray-100">
+                      {/* eslint-disable-next-html-element-access */}
+                      <img src={productForm.image} alt="Preview" className="w-full h-full object-cover" />
+                    </div>
+                    <span className="text-xs text-emerald-700 font-semibold flex items-center gap-1">
+                      <CheckCircle2 className="w-3.5 h-3.5" /> Image Loaded Successfully
+                    </span>
+                  </div>
+                )}
               </div>
 
               <div>
@@ -873,29 +936,74 @@ export default function AdminPage() {
                 </div>
               </div>
 
-              <div>
-                <label className="block text-xs font-semibold text-accent mb-1">Image URL</label>
-                <input
-                  type="url"
-                  required
-                  value={galleryForm.image}
-                  onChange={(e) => setGalleryForm({ ...galleryForm, image: e.target.value })}
-                  className="w-full px-3.5 py-2 rounded-xl border border-gray-200 text-xs focus:outline-none focus:ring-2 focus:ring-primary mb-2"
-                />
-                <span className="text-[10px] text-gray-400 font-semibold block mb-1">Or Select Preset Image:</span>
-                <div className="flex gap-2 overflow-x-auto pb-1">
-                  {imagePresets.map((preset, idx) => (
-                    <button
-                      type="button"
-                      key={idx}
-                      onClick={() => setGalleryForm({ ...galleryForm, image: preset })}
-                      className={`w-12 h-10 rounded-lg overflow-hidden border-2 shrink-0 ${galleryForm.image === preset ? 'border-primary ring-2 ring-primary/30' : 'border-gray-200'}`}
-                    >
-                      {/* eslint-disable-next-html-element-access */}
-                      <img src={preset} alt="preset" className="w-full h-full object-cover" />
-                    </button>
-                  ))}
+              {/* DUAL IMAGE INPUT FOR GALLERY: FILE UPLOAD FROM PC OR URL OR PRESET */}
+              <div className="space-y-3 bg-secondary/50 p-4 rounded-2xl border border-gray-200">
+                <label className="block text-xs font-bold text-accent uppercase tracking-wider">
+                  Gallery Photo Source
+                </label>
+
+                {/* Option 1: File Upload from PC */}
+                <div>
+                  <span className="text-[11px] font-semibold text-gray-600 block mb-1">
+                    1. Upload File from PC:
+                  </span>
+                  <label className="flex items-center justify-center gap-2 border-2 border-dashed border-primary/40 hover:border-primary bg-white p-3 rounded-xl cursor-pointer text-xs font-semibold text-primary transition-all">
+                    <Upload className="w-4 h-4" />
+                    <span>Choose Image File from PC</span>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={(e) => handleFileUpload(e, true)}
+                      className="hidden"
+                    />
+                  </label>
                 </div>
+
+                {/* Option 2: Paste Web URL */}
+                <div>
+                  <span className="text-[11px] font-semibold text-gray-600 block mb-1">
+                    2. Or Paste Image Web URL:
+                  </span>
+                  <input
+                    type="url"
+                    value={galleryForm.image}
+                    onChange={(e) => setGalleryForm({ ...galleryForm, image: e.target.value })}
+                    className="w-full px-3.5 py-2 rounded-xl border border-gray-200 text-xs focus:outline-none focus:ring-2 focus:ring-primary bg-white"
+                  />
+                </div>
+
+                {/* Option 3: Presets */}
+                <div>
+                  <span className="text-[11px] font-semibold text-gray-600 block mb-1">
+                    3. Or Choose Preset Image:
+                  </span>
+                  <div className="flex gap-2 overflow-x-auto pb-1">
+                    {imagePresets.map((preset, idx) => (
+                      <button
+                        type="button"
+                        key={idx}
+                        onClick={() => setGalleryForm({ ...galleryForm, image: preset })}
+                        className={`w-12 h-10 rounded-lg overflow-hidden border-2 shrink-0 ${galleryForm.image === preset ? 'border-primary ring-2 ring-primary/30' : 'border-gray-200'}`}
+                      >
+                        {/* eslint-disable-next-html-element-access */}
+                        <img src={preset} alt="preset" className="w-full h-full object-cover" />
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Selected Image Thumbnail Preview */}
+                {galleryForm.image && (
+                  <div className="pt-2 border-t border-gray-200 flex items-center gap-3">
+                    <div className="w-16 h-12 rounded-lg overflow-hidden border border-gray-300 shrink-0 bg-gray-100">
+                      {/* eslint-disable-next-html-element-access */}
+                      <img src={galleryForm.image} alt="Preview" className="w-full h-full object-cover" />
+                    </div>
+                    <span className="text-xs text-emerald-700 font-semibold flex items-center gap-1">
+                      <CheckCircle2 className="w-3.5 h-3.5" /> Image Loaded Successfully
+                    </span>
+                  </div>
+                )}
               </div>
 
               <div>

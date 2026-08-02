@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Phone, Mail, MapPin, Clock, MessageCircle, Send, CheckCircle2, Sparkles } from 'lucide-react';
+import { Phone, Mail, MapPin, Clock, MessageCircle, Send, CheckCircle2, Sparkles, ExternalLink } from 'lucide-react';
 import { useStore } from '@/context/StoreContext';
 
 export default function ContactPage() {
@@ -17,9 +17,13 @@ export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  const targetEmail = 'royalcapitalcurtains@gmail.com';
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+
+    // 1. Save to Admin Dashboard StoreContext (localStorage)
     addInquiry({
       name: formData.name,
       email: formData.email,
@@ -28,9 +32,28 @@ export default function ContactPage() {
       roomTypes: ['General Window Inquiry'],
       message: formData.message,
     });
+
+    // 2. Prepare mailto link for direct inbox notification to royalcapitalcurtains@gmail.com
+    const emailSubject = encodeURIComponent(`[Website Inquiry] ${formData.name} - ${formData.subject}`);
+    const emailBody = encodeURIComponent(
+      `NEW INQUIRY SUBMITTED FROM ROYAL CAPITAL WEBSITE\n\n` +
+      `----------------------------------------\n` +
+      `Client Name: ${formData.name}\n` +
+      `Phone Number: ${formData.phone}\n` +
+      `Email Address: ${formData.email}\n` +
+      `Subject: ${formData.subject}\n` +
+      `----------------------------------------\n\n` +
+      `Message Details:\n${formData.message}\n\n` +
+      `Sent via Royal Capital Contact Form`
+    );
+
+    const mailtoUrl = `mailto:${targetEmail}?subject=${emailSubject}&body=${emailBody}`;
+
     setTimeout(() => {
       setLoading(false);
       setSubmitted(true);
+      // Trigger default mail app or webmail with pre-filled lead details
+      window.location.href = mailtoUrl;
     }, 600);
   };
 
@@ -85,8 +108,8 @@ export default function ContactPage() {
               <Mail className="w-5 h-5" />
             </div>
             <h3 className="font-bold text-accent text-sm">Email Consultation</h3>
-            <a href="mailto:royalcapitalcurtains@gmail.com" className="text-xs text-gray-600 hover:text-primary hover:underline block font-semibold">
-              royalcapitalcurtains@gmail.com
+            <a href={`mailto:${targetEmail}`} className="text-xs text-gray-600 hover:text-primary hover:underline block font-semibold">
+              {targetEmail}
             </a>
             <span className="text-xs font-semibold text-primary block pt-1">Responds in &lt; 2 hrs</span>
           </div>
@@ -110,19 +133,28 @@ export default function ContactPage() {
                 <div className="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto shadow-luxury">
                   <CheckCircle2 className="w-8 h-8" />
                 </div>
-                <h3 className="font-serif text-3xl font-bold text-accent">Message Sent Successfully!</h3>
+                <h3 className="font-serif text-3xl font-bold text-accent">Inquiry Received & Email Prepared!</h3>
                 <p className="text-gray-600 text-sm max-w-md mx-auto">
-                  Thank you, <span className="font-semibold text-accent">{formData.name}</span>. A senior window specialist will reply to your message within 2 business hours.
+                  Thank you, <span className="font-semibold text-accent">{formData.name}</span>. Your inquiry has been saved to the Admin Dashboard and pre-filled for email dispatch to <strong className="text-primary">{targetEmail}</strong>.
                 </p>
-                <button
-                  onClick={() => {
-                    setSubmitted(false);
-                    setFormData({ name: '', email: '', phone: '', subject: 'General Inquiry', message: '' });
-                  }}
-                  className="bg-primary hover:bg-primary-dark text-white font-semibold text-xs uppercase tracking-wider px-6 py-3 rounded-full"
-                >
-                  Send Another Inquiry
-                </button>
+                <div className="flex flex-col sm:flex-row justify-center gap-3 pt-2">
+                  <button
+                    onClick={() => {
+                      setSubmitted(false);
+                      setFormData({ name: '', email: '', phone: '', subject: 'General Inquiry', message: '' });
+                    }}
+                    className="bg-primary hover:bg-primary-dark text-white font-semibold text-xs uppercase tracking-wider px-6 py-3 rounded-full shadow-luxury"
+                  >
+                    Send Another Inquiry
+                  </button>
+                  <a
+                    href={`mailto:${targetEmail}?subject=${encodeURIComponent(`[Inquiry] ${formData.name}`)}&body=${encodeURIComponent(formData.message)}`}
+                    className="bg-secondary hover:bg-warmGrey text-accent border border-warmGrey font-semibold text-xs uppercase tracking-wider px-6 py-3 rounded-full flex items-center justify-center gap-1.5"
+                  >
+                    <span>Re-open Email App</span>
+                    <ExternalLink className="w-3.5 h-3.5" />
+                  </a>
+                </div>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-6">
@@ -205,7 +237,7 @@ export default function ContactPage() {
                   className="w-full py-4 bg-primary hover:bg-primary-dark text-white font-semibold text-xs uppercase tracking-wider rounded-xl shadow-luxury hover:shadow-glow transition-all flex items-center justify-center gap-2"
                 >
                   {loading ? (
-                    <span>Sending Message...</span>
+                    <span>Preparing Email & Saving Lead...</span>
                   ) : (
                     <>
                       <Send className="w-4 h-4" />
