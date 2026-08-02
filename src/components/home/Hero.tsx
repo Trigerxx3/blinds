@@ -2,13 +2,9 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { ArrowRight, Calendar, ShieldCheck, Award, Star, Sparkles } from 'lucide-react';
+import { ArrowRight, Mail, ShieldCheck, Award, Star, Sparkles } from 'lucide-react';
 
-interface HeroProps {
-  onOpenConsultation: () => void;
-}
-
-export const Hero: React.FC<HeroProps> = ({ onOpenConsultation }) => {
+export const Hero: React.FC = () => {
   return (
     <section className="relative min-h-[85vh] lg:min-h-[90vh] flex items-center justify-center overflow-hidden bg-accent">
       {/* Background High-Res Image with Overlay */}
@@ -55,13 +51,13 @@ export const Hero: React.FC<HeroProps> = ({ onOpenConsultation }) => {
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Link>
 
-            <button
-              onClick={onOpenConsultation}
+            <Link
+              href="/contact"
               className="inline-flex items-center justify-center gap-3 bg-white/10 hover:bg-white/20 backdrop-blur-md text-white border border-white/30 font-semibold text-sm uppercase tracking-wider px-8 py-4 rounded-full transition-all"
             >
-              <Calendar className="w-4 h-4 text-primary-light" />
-              <span>Get Free Consultation</span>
-            </button>
+              <Mail className="w-4 h-4 text-primary-light" />
+              <span>Contact Sales</span>
+            </Link>
           </div>
 
           {/* Social Proof Trust Bar */}
@@ -83,7 +79,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenConsultation }) => {
 
             <div className="flex items-center gap-2">
               <Award className="w-4 h-4 text-primary-light" />
-              <span>Free Laser Measurement</span>
+              <span>Precision Laser Fitting</span>
             </div>
           </div>
         </div>

@@ -1,20 +1,16 @@
 'use client';
 
 import React from 'react';
-import { X, Calendar, MapPin } from 'lucide-react';
+import Link from 'next/link';
+import { X, Mail, MapPin } from 'lucide-react';
 import { GalleryItem } from '@/types';
 
 interface LightboxModalProps {
   item: GalleryItem | null;
   onClose: () => void;
-  onOpenConsultation: () => void;
 }
 
-export const LightboxModal: React.FC<LightboxModalProps> = ({
-  item,
-  onClose,
-  onOpenConsultation,
-}) => {
+export const LightboxModal: React.FC<LightboxModalProps> = ({ item, onClose }) => {
   if (!item) return null;
 
   return (
@@ -78,16 +74,14 @@ export const LightboxModal: React.FC<LightboxModalProps> = ({
           </div>
 
           <div className="pt-4 border-t border-gray-100">
-            <button
-              onClick={() => {
-                onClose();
-                onOpenConsultation();
-              }}
+            <Link
+              href="/contact"
+              onClick={onClose}
               className="w-full py-3 bg-primary hover:bg-primary-dark text-white text-xs uppercase tracking-wider font-semibold rounded-xl shadow-luxury flex items-center justify-center gap-2 transition-all transform hover:scale-[1.02]"
             >
-              <Calendar className="w-4 h-4" />
-              <span>Get This Look in Your Home</span>
-            </button>
+              <Mail className="w-4 h-4" />
+              <span>Inquire About This Design</span>
+            </Link>
           </div>
         </div>
       </div>

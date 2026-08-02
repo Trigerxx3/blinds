@@ -1,12 +1,10 @@
 'use client';
 
-import React, { useState } from 'react';
-import { Award, Users, ShieldCheck, HeartHandshake, Sparkles, CheckCircle2 } from 'lucide-react';
-import { ConsultationModal } from '@/components/ui/ConsultationModal';
+import React from 'react';
+import Link from 'next/link';
+import { Award, Users, ShieldCheck, HeartHandshake, Sparkles, CheckCircle2, Mail } from 'lucide-react';
 
 export default function AboutPage() {
-  const [modalOpen, setModalOpen] = useState(false);
-
   const teamMembers = [
     {
       name: 'Julian Vance',
@@ -150,7 +148,7 @@ export default function AboutPage() {
           </div>
           <div className="bg-white/10 p-5 rounded-2xl border border-white/10 space-y-2">
             <Users className="w-6 h-6 text-primary-light" />
-            <h3 className="font-bold text-base">In-Home Consultation</h3>
+            <h3 className="font-bold text-base">In-Home Fitting</h3>
             <p className="text-xs text-gray-300">Fabric sample catalog brought directly to your room daylight.</p>
           </div>
           <div className="bg-white/10 p-5 rounded-2xl border border-white/10 space-y-2">
@@ -160,8 +158,6 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
-
-      <ConsultationModal isOpen={modalOpen} onClose={() => setModalOpen(false)} />
     </div>
   );
 }

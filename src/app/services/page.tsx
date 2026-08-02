@@ -1,13 +1,11 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
+import Link from 'next/link';
 import { servicesData } from '@/data/servicesData';
-import { Calendar, CheckCircle2, ArrowRight, Sparkles, Ruler, Palette, Scissors, Wrench, ShieldCheck } from 'lucide-react';
-import { ConsultationModal } from '@/components/ui/ConsultationModal';
+import { Mail, CheckCircle2, Sparkles, Ruler, Palette, Scissors, Wrench, ShieldCheck } from 'lucide-react';
 
 export default function ServicesPage() {
-  const [modalOpen, setModalOpen] = useState(false);
-
   const iconMap: Record<string, any> = {
     Ruler,
     Palette,
@@ -17,7 +15,7 @@ export default function ServicesPage() {
   };
 
   const processSteps = [
-    { step: '01', title: 'Free Measurement', desc: 'Our technician visits your home with digital laser measuring tools.' },
+    { step: '01', title: 'Laser Measurement', desc: 'Our technician visits your home with digital laser measuring tools.' },
     { step: '02', title: 'Fabric & Style Selection', desc: 'Compare tactile swatches in your room daylight with our design consultant.' },
     { step: '03', title: 'Custom Atelier Crafting', desc: 'Hand-tailored in our precision workshop down to the exact millimeter.' },
     { step: '04', title: 'White-Glove Installation', desc: 'Clean, silent installation, track testing, and motor app setup.' },
@@ -78,13 +76,13 @@ export default function ServicesPage() {
                     ))}
                   </ul>
 
-                  <button
-                    onClick={() => setModalOpen(true)}
+                  <Link
+                    href="/contact"
                     className="w-full mt-4 py-3 bg-secondary hover:bg-primary hover:text-white text-accent font-semibold text-xs uppercase tracking-wider rounded-xl transition-all flex items-center justify-center gap-2"
                   >
-                    <Calendar className="w-4 h-4" />
-                    <span>Book Service</span>
-                  </button>
+                    <Mail className="w-4 h-4 text-primary group-hover:text-white" />
+                    <span>Inquire About Service</span>
+                  </Link>
                 </div>
               </div>
             );
@@ -96,12 +94,12 @@ export default function ServicesPage() {
       <section className="bg-secondary py-20 border-t border-b border-warmGrey">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
           <div className="text-center max-w-2xl mx-auto space-y-3">
-            <span className="text-xs uppercase tracking-widest text-primary font-bold">How It Works</span>
+            <span className="text-xs uppercase tracking-widest text-primary font-bold">Our Craftsmanship</span>
             <h2 className="font-serif text-3xl sm:text-5xl font-bold text-accent">
-              Our Simple 4-Step Journey
+              Our 4-Step Process
             </h2>
             <p className="text-gray-500 text-sm">
-              We make ordering custom window treatments simple, transparent, and completely hassle-free.
+              How we take your window visions from initial concept to custom installed reality.
             </p>
           </div>
 
@@ -116,18 +114,16 @@ export default function ServicesPage() {
           </div>
 
           <div className="text-center pt-4">
-            <button
-              onClick={() => setModalOpen(true)}
+            <Link
+              href="/contact"
               className="inline-flex items-center gap-3 bg-primary hover:bg-primary-dark text-white font-semibold text-sm uppercase tracking-wider px-8 py-4 rounded-full shadow-luxury transition-all transform hover:scale-105"
             >
               <Sparkles className="w-4 h-4" />
-              <span>Start Step 1: Free Measurement</span>
-            </button>
+              <span>Contact Our Design Atelier</span>
+            </Link>
           </div>
         </div>
       </section>
-
-      <ConsultationModal isOpen={modalOpen} onClose={() => setModalOpen(false)} />
     </div>
   );
 }

@@ -4,8 +4,7 @@ import React, { useState } from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import { useStore } from '@/context/StoreContext';
-import { Star, ShieldCheck, Calendar, ArrowLeft, Check, Sparkles, Ruler, Sun, RefreshCw } from 'lucide-react';
-import { ConsultationModal } from '@/components/ui/ConsultationModal';
+import { Star, ShieldCheck, ArrowLeft, Check, Sparkles, Ruler, MessageCircle, Mail } from 'lucide-react';
 
 export default function ProductDetailPage() {
   const params = useParams();
@@ -16,7 +15,9 @@ export default function ProductDetailPage() {
 
   const [activeImage, setActiveImage] = useState(product.image);
   const [selectedColor, setSelectedColor] = useState(product.colors[0]);
-  const [modalOpen, setModalOpen] = useState(false);
+
+  const whatsappNumber = '18005557890';
+  const whatsappMsg = encodeURIComponent(`Hello Royal Capital! I'm interested in inquiring about the "${product.name}" collection.`);
 
   return (
     <div className="py-12 md:py-20 bg-white min-h-screen">
@@ -87,7 +88,7 @@ export default function ProductDetailPage() {
               <div className="flex items-baseline gap-3 pt-1">
                 <span className="text-xs text-gray-400 uppercase tracking-wider">Starting from</span>
                 <span className="font-serif text-3xl font-bold text-primary">${product.priceStartingFrom}</span>
-                <span className="text-xs text-gray-500">/ window (fitted)</span>
+                <span className="text-xs text-gray-500">/ window</span>
               </div>
             </div>
 
@@ -152,19 +153,29 @@ export default function ProductDetailPage() {
               </div>
             </div>
 
-            {/* Primary Booking CTA */}
+            {/* Direct Inquiry CTAs */}
             <div className="pt-4 space-y-3">
-              <button
-                onClick={() => setModalOpen(true)}
-                className="w-full py-4 bg-primary hover:bg-primary-dark text-white font-semibold text-xs uppercase tracking-wider rounded-2xl shadow-luxury hover:shadow-glow transition-all flex items-center justify-center gap-2"
+              <a
+                href={`https://wa.me/${whatsappNumber}?text=${whatsappMsg}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full py-4 bg-[#25D366] hover:bg-[#20ba59] text-white font-semibold text-xs uppercase tracking-wider rounded-2xl shadow-luxury transition-all flex items-center justify-center gap-2"
               >
-                <Calendar className="w-4 h-4" />
-                <span>Book Free Measurement for This Product</span>
-              </button>
+                <MessageCircle className="w-4 h-4 fill-current" />
+                <span>Inquire About This Model on WhatsApp</span>
+              </a>
 
-              <div className="flex items-center justify-center gap-2 text-xs text-gray-500">
+              <Link
+                href="/contact"
+                className="w-full py-3.5 bg-secondary hover:bg-warmGrey text-accent font-semibold text-xs uppercase tracking-wider rounded-2xl border border-warmGrey flex items-center justify-center gap-2 transition-all"
+              >
+                <Mail className="w-4 h-4 text-primary" />
+                <span>Send Showroom Inquiry Email</span>
+              </Link>
+
+              <div className="flex items-center justify-center gap-2 text-xs text-gray-500 pt-1">
                 <ShieldCheck className="w-4 h-4 text-primary" />
-                <span>100% Free Consultation • Includes sample kit</span>
+                <span>10-Year Comprehensive Hardware Warranty</span>
               </div>
             </div>
           </div>
@@ -225,12 +236,6 @@ export default function ProductDetailPage() {
           </div>
         </div>
       </div>
-
-      <ConsultationModal
-        isOpen={modalOpen}
-        onClose={() => setModalOpen(false)}
-        preselectedProduct={product.name}
-      />
     </div>
   );
 }

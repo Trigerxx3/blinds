@@ -3,12 +3,10 @@
 import React, { useState } from 'react';
 import { MasonryGallery } from '@/components/gallery/MasonryGallery';
 import { LightboxModal } from '@/components/ui/LightboxModal';
-import { ConsultationModal } from '@/components/ui/ConsultationModal';
 import { GalleryItem } from '@/types';
 
 export default function GalleryPage() {
   const [activeItem, setActiveItem] = useState<GalleryItem | null>(null);
-  const [consultationOpen, setConsultationOpen] = useState(false);
 
   return (
     <div className="py-16 md:py-24 bg-white min-h-screen">
@@ -31,14 +29,6 @@ export default function GalleryPage() {
         <LightboxModal
           item={activeItem}
           onClose={() => setActiveItem(null)}
-          onOpenConsultation={() => setConsultationOpen(true)}
-        />
-
-        {/* Consultation Booking Modal */}
-        <ConsultationModal
-          isOpen={consultationOpen}
-          onClose={() => setConsultationOpen(false)}
-          preselectedProduct={activeItem?.title}
         />
       </div>
     </div>

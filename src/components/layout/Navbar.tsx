@@ -3,13 +3,9 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu, X, Phone, Calendar, Sparkles } from 'lucide-react';
+import { Menu, X, Phone, Mail, Sparkles } from 'lucide-react';
 
-interface NavbarProps {
-  onOpenConsultation: () => void;
-}
-
-export const Navbar: React.FC<NavbarProps> = ({ onOpenConsultation }) => {
+export const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
@@ -40,10 +36,10 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenConsultation }) => {
       {/* Top Banner Notice */}
       <div className="bg-accent text-secondary text-xs py-2 px-4 text-center font-medium tracking-wide flex justify-center items-center gap-2">
         <Sparkles className="w-3.5 h-3.5 text-primary-light" />
-        <span>Book a Free In-Home Laser Measurement & Interior Consultation Today</span>
-        <span className="hidden md:inline-block font-semibold underline cursor-pointer ml-2" onClick={onOpenConsultation}>
-          Claim Free Quote →
-        </span>
+        <span>Luxury Custom Window Treatments & Tailored Curtains Collection</span>
+        <Link href="/contact" className="hidden md:inline-block font-semibold underline ml-2 hover:text-primary-light">
+          Get in Touch →
+        </Link>
       </div>
 
       {/* Main Sticky Navbar */}
@@ -97,19 +93,19 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenConsultation }) => {
           <div className="hidden lg:flex items-center gap-4">
             <a
               href="tel:+18005557890"
-              className="flex items-center gap-2 text-xs font-semibold text-accent hover:text-primary transition-colors px-3 py-2 rounded-lg bg-secondary"
+              className="flex items-center gap-2 text-xs font-semibold text-accent hover:text-primary transition-colors px-3.5 py-2 rounded-xl bg-secondary"
             >
               <Phone className="w-4 h-4 text-primary" />
               <span>+1 (800) 555-7890</span>
             </a>
 
-            <button
-              onClick={onOpenConsultation}
+            <Link
+              href="/contact"
               className="flex items-center gap-2 bg-primary hover:bg-primary-dark text-white text-xs uppercase tracking-wider font-semibold px-5 py-2.5 rounded-full shadow-luxury hover:shadow-glow transition-all transform hover:-translate-y-0.5"
             >
-              <Calendar className="w-4 h-4" />
-              <span>Free Consultation</span>
-            </button>
+              <Mail className="w-4 h-4" />
+              <span>Contact Us</span>
+            </Link>
           </div>
 
           {/* Mobile Menu Toggle Button */}
@@ -150,16 +146,14 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenConsultation }) => {
                 <Phone className="w-4 h-4 text-primary" />
                 <span>Call Us: +1 (800) 555-7890</span>
               </a>
-              <button
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  onOpenConsultation();
-                }}
+              <Link
+                href="/contact"
+                onClick={() => setMobileMenuOpen(false)}
                 className="w-full py-3 bg-primary hover:bg-primary-dark text-white text-sm uppercase tracking-wider font-semibold rounded-xl shadow-luxury flex items-center justify-center gap-2"
               >
-                <Calendar className="w-4 h-4" />
-                <span>Book Free Measurement</span>
-              </button>
+                <Mail className="w-4 h-4" />
+                <span>Contact Sales</span>
+              </Link>
             </div>
           </div>
         )}
