@@ -114,7 +114,9 @@ export const Footer: React.FC = () => {
               </li>
               <li className="flex items-center gap-3">
                 <Mail className="w-4 h-4 text-primary-light shrink-0" />
-                <span>consult@royalcapitalblinds.com</span>
+                <a href="mailto:royalcapitalcurtains@gmail.com" className="hover:text-primary-light transition-colors">
+                  royalcapitalcurtains@gmail.com
+                </a>
               </li>
               <li className="flex items-start gap-3 pt-2">
                 <Clock className="w-4 h-4 text-primary-light shrink-0 mt-0.5" />

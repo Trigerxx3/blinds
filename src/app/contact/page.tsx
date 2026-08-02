@@ -85,7 +85,9 @@ export default function ContactPage() {
               <Mail className="w-5 h-5" />
             </div>
             <h3 className="font-bold text-accent text-sm">Email Consultation</h3>
-            <p className="text-xs text-gray-500">consult@royalcapitalblinds.com</p>
+            <a href="mailto:royalcapitalcurtains@gmail.com" className="text-xs text-gray-600 hover:text-primary hover:underline block font-semibold">
+              royalcapitalcurtains@gmail.com
+            </a>
             <span className="text-xs font-semibold text-primary block pt-1">Responds in &lt; 2 hrs</span>
           </div>
 
