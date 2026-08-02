@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { ArrowRight, Mail, ShieldCheck, Award, Star, Sparkles } from 'lucide-react';
+import { ArrowRight, Mail, ShieldCheck, Award, Sparkles } from 'lucide-react';
 
 export const Hero: React.FC = () => {
   return (
@@ -24,10 +24,7 @@ export const Hero: React.FC = () => {
           {/* Top Pill Badge */}
           <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 px-4 py-2 rounded-full text-secondary text-xs sm:text-sm font-medium tracking-wide">
             <Sparkles className="w-4 h-4 text-primary-light animate-spin" style={{ animationDuration: '6s' }} />
-            <span>Luxury Custom Window Treatments</span>
-            <span className="bg-primary text-white text-[10px] uppercase tracking-wider px-2 py-0.5 rounded-full font-bold">
-              15+ Yrs Excellence
-            </span>
+            <span>Luxury Custom Window Treatments & Curtains</span>
           </div>
 
           {/* Main Headline */}
@@ -62,16 +59,6 @@ export const Hero: React.FC = () => {
 
           {/* Social Proof Trust Bar */}
           <div className="pt-8 border-t border-white/15 flex flex-wrap items-center gap-8 text-xs text-gray-300">
-            <div className="flex items-center gap-2">
-              <div className="flex text-amber-400">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="w-4 h-4 fill-current" />
-                ))}
-              </div>
-              <span className="font-semibold text-white">4.9/5 Rating</span>
-              <span className="text-gray-400">(1,250+ Verified Reviews)</span>
-            </div>
-
             <div className="flex items-center gap-2">
               <ShieldCheck className="w-4 h-4 text-primary-light" />
               <span>10-Year Warranty</span>
