@@ -85,10 +85,11 @@ export default function ProductDetailPage() {
                 {product.name}
               </h1>
 
-              <div className="flex items-baseline gap-3 pt-1">
-                <span className="text-xs text-gray-400 uppercase tracking-wider">Starting from</span>
-                <span className="font-serif text-3xl font-bold text-primary">${product.priceStartingFrom}</span>
-                <span className="text-xs text-gray-500">/ window</span>
+              <div className="flex items-center gap-2 pt-1">
+                <span className="text-xs font-semibold uppercase tracking-wider bg-primary/10 text-primary px-3 py-1 rounded-full">
+                  Custom Tailored Fitting
+                </span>
+                <span className="text-xs text-gray-500 font-medium">Precision Laser Sized</span>
               </div>
             </div>
 

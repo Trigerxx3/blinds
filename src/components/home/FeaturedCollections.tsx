@@ -81,8 +81,8 @@ export const FeaturedCollections: React.FC = () => {
 
                 <div className="pt-4 border-t border-gray-100 flex items-center justify-between">
                   <div>
-                    <span className="text-[11px] text-gray-400 uppercase tracking-wider block">Starting from</span>
-                    <span className="font-serif text-2xl font-bold text-accent">${product.priceStartingFrom}</span>
+                    <span className="text-[11px] text-gray-400 uppercase tracking-wider block">Opacity</span>
+                    <span className="text-xs font-bold text-accent">{product.opacity}</span>
                   </div>
 
                   <Link

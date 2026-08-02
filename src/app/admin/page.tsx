@@ -382,15 +382,13 @@ export default function AdminPage() {
 
                 <div className="bg-white p-6 rounded-3xl shadow-card border border-warmGrey space-y-3">
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-bold text-gray-400 uppercase">Est. Catalog Value</span>
+                    <span className="text-xs font-bold text-gray-400 uppercase">Catalog Status</span>
                     <div className="w-9 h-9 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center">
                       <Sparkles className="w-4 h-4" />
                     </div>
                   </div>
-                  <div className="font-serif text-3xl font-bold text-accent">
-                    ${products.reduce((acc, p) => acc + p.priceStartingFrom, 0)}
-                  </div>
-                  <div className="text-xs text-gray-500 font-medium">Avg ${Math.round(products.reduce((acc, p) => acc + p.priceStartingFrom, 0) / products.length)} / unit</div>
+                  <div className="font-serif text-3xl font-bold text-accent">Pure Showcase</div>
+                  <div className="text-xs text-gray-500 font-medium">Custom Quotation Channel</div>
                 </div>
               </div>
 
@@ -503,7 +501,7 @@ export default function AdminPage() {
                           {p.category}
                         </span>
                         <h4 className="font-serif font-bold text-accent text-base line-clamp-1">{p.name}</h4>
-                        <div className="text-xs text-primary font-bold">${p.priceStartingFrom} / window</div>
+                        <div className="text-xs text-primary font-bold">Custom Sized</div>
                       </div>
                     </div>
 

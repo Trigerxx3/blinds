@@ -216,8 +216,8 @@ export default function CollectionsPage() {
 
                   <div className="pt-4 border-t border-gray-100 flex items-center justify-between">
                     <div>
-                      <span className="text-[10px] text-gray-400 uppercase tracking-wider block">Starting from</span>
-                      <span className="font-serif text-2xl font-bold text-accent">${product.priceStartingFrom}</span>
+                      <span className="text-[10px] text-gray-400 uppercase tracking-wider block">Custom Sizing</span>
+                      <span className="text-xs font-bold text-accent">Tailored Fit</span>
                     </div>
 
                     <Link
