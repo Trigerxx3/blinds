@@ -4,8 +4,7 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import { Product, GalleryItem, ConsultationFormData } from '@/types';
 import { productsData } from '@/data/products';
 import { galleryItemsData } from '@/data/galleryData';
-import { db, isFirebaseConfigured } from '@/lib/firebase';
-import { collection, onSnapshot, doc, setDoc, deleteDoc } from 'firebase/firestore';
+import { supabase, isSupabaseConfigured } from '@/lib/supabase';
 
 interface StoreContextType {
   products: Product[];
@@ -62,38 +61,57 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   const [inquiries, setInquiries] = useState<ConsultationFormData[]>(initialInquiries);
   const [isLoaded, setIsLoaded] = useState(false);
 
-  // Real-time Cloud Synchronization via Firebase Firestore
+  // Fetch initial data from Supabase Cloud DB
+  const fetchSupabaseData = async () => {
+    if (!supabase) return;
+    try {
+      const { data: cloudProducts } = await supabase.from('products').select('*');
+      if (cloudProducts && cloudProducts.length > 0) {
+        setProducts(cloudProducts as Product[]);
+      }
+
+      const { data: cloudGallery } = await supabase.from('gallery').select('*');
+      if (cloudGallery && cloudGallery.length > 0) {
+        setGalleryItems(cloudGallery as GalleryItem[]);
+      }
+
+      const { data: cloudInquiries } = await supabase.from('inquiries').select('*');
+      if (cloudInquiries && cloudInquiries.length > 0) {
+        setInquiries(cloudInquiries as ConsultationFormData[]);
+      }
+    } catch (err) {
+      console.error('Supabase fetch error:', err);
+    }
+  };
+
+  // Real-time Cloud Synchronization via Supabase WebSockets
   useEffect(() => {
-    if (isFirebaseConfigured && db) {
-      // 1. Subscribe to Products Firestore collection
-      const unsubProducts = onSnapshot(collection(db, 'products'), (snapshot) => {
-        if (!snapshot.empty) {
-          const cloudProducts = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() } as Product));
-          setProducts(cloudProducts);
-        }
-      });
+    if (isSupabaseConfigured && supabase) {
+      fetchSupabaseData();
 
-      // 2. Subscribe to Gallery Firestore collection
-      const unsubGallery = onSnapshot(collection(db, 'gallery'), (snapshot) => {
-        if (!snapshot.empty) {
-          const cloudGallery = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() } as GalleryItem));
-          setGalleryItems(cloudGallery);
-        }
-      });
-
-      // 3. Subscribe to Inquiries Firestore collection
-      const unsubInquiries = onSnapshot(collection(db, 'inquiries'), (snapshot) => {
-        if (!snapshot.empty) {
-          const cloudInquiries = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() } as ConsultationFormData));
-          setInquiries(cloudInquiries);
-        }
-      });
+      // Subscribe to Supabase Realtime channel for products, gallery, inquiries
+      const channel = supabase
+        .channel('schema-db-changes')
+        .on(
+          'postgres_changes',
+          { event: '*', schema: 'public', table: 'products' },
+          () => fetchSupabaseData()
+        )
+        .on(
+          'postgres_changes',
+          { event: '*', schema: 'public', table: 'gallery' },
+          () => fetchSupabaseData()
+        )
+        .on(
+          'postgres_changes',
+          { event: '*', schema: 'public', table: 'inquiries' },
+          () => fetchSupabaseData()
+        )
+        .subscribe();
 
       setIsLoaded(true);
       return () => {
-        unsubProducts();
-        unsubGallery();
-        unsubInquiries();
+        supabase?.removeChannel(channel);
       };
     } else {
       // Fallback: Load from localStorage if Cloud DB is not configured
@@ -125,24 +143,21 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     }
   }, []);
 
-  // Save changes to Cloud DB + localStorage
-  const saveProducts = (newProducts: Product[]) => {
+  // Helper to save to localStorage
+  const saveProductsLocally = (newProducts: Product[]) => {
     setProducts(newProducts);
     localStorage.setItem('rc_products', JSON.stringify(newProducts));
   };
 
-  const saveGallery = (newGallery: GalleryItem[]) => {
+  const saveGalleryLocally = (newGallery: GalleryItem[]) => {
     setGalleryItems(newGallery);
     localStorage.setItem('rc_gallery', JSON.stringify(newGallery));
   };
 
-  const saveInquiries = (newInquiries: ConsultationFormData[]) => {
+  const saveInquiriesLocally = (newInquiries: ConsultationFormData[]) => {
     setInquiries(newInquiries);
     localStorage.setItem('rc_inquiries', JSON.stringify(newInquiries));
   };
-
-  // Helper to sanitize objects for Firestore (removes undefined values)
-  const cleanObj = <T,>(obj: T): T => JSON.parse(JSON.stringify(obj));
 
   // Actions
   const addProduct = (productData: Omit<Product, 'id'>): Product => {
@@ -152,12 +167,12 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       id: `${slug}-${Date.now().toString().slice(-4)}`,
     };
     const updated = [newProduct, ...products];
-    saveProducts(updated);
+    saveProductsLocally(updated);
 
-    if (isFirebaseConfigured && db) {
-      setDoc(doc(db, 'products', newProduct.id), cleanObj(newProduct)).catch((err) =>
-        console.error('Firestore save error:', err)
-      );
+    if (isSupabaseConfigured && supabase) {
+      supabase.from('products').upsert(newProduct).then(({ error }) => {
+        if (error) console.error('Supabase product save error:', error);
+      });
     }
 
     return newProduct;
@@ -167,21 +182,23 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     const updatedProduct = products.find((p) => p.id === id);
     const merged = updatedProduct ? { ...updatedProduct, ...updatedFields } : null;
     const updated = products.map((p) => (p.id === id ? { ...p, ...updatedFields } : p));
-    saveProducts(updated);
+    saveProductsLocally(updated);
 
-    if (isFirebaseConfigured && db && merged) {
-      setDoc(doc(db, 'products', id), cleanObj(merged), { merge: true }).catch((err) =>
-        console.error('Firestore update error:', err)
-      );
+    if (isSupabaseConfigured && supabase && merged) {
+      supabase.from('products').upsert(merged).then(({ error }) => {
+        if (error) console.error('Supabase product update error:', error);
+      });
     }
   };
 
   const deleteProduct = (id: string) => {
     const updated = products.filter((p) => p.id !== id);
-    saveProducts(updated);
+    saveProductsLocally(updated);
 
-    if (isFirebaseConfigured && db) {
-      deleteDoc(doc(db, 'products', id)).catch((err) => console.error('Firestore delete error:', err));
+    if (isSupabaseConfigured && supabase) {
+      supabase.from('products').delete().eq('id', id).then(({ error }) => {
+        if (error) console.error('Supabase product delete error:', error);
+      });
     }
   };
 
@@ -191,12 +208,12 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       id: `gal-${Date.now().toString().slice(-4)}`,
     };
     const updated = [newItem, ...galleryItems];
-    saveGallery(updated);
+    saveGalleryLocally(updated);
 
-    if (isFirebaseConfigured && db) {
-      setDoc(doc(db, 'gallery', newItem.id), cleanObj(newItem)).catch((err) =>
-        console.error('Firestore save error:', err)
-      );
+    if (isSupabaseConfigured && supabase) {
+      supabase.from('gallery').upsert(newItem).then(({ error }) => {
+        if (error) console.error('Supabase gallery save error:', error);
+      });
     }
 
     return newItem;
@@ -204,10 +221,12 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
   const deleteGalleryItem = (id: string) => {
     const updated = galleryItems.filter((g) => g.id !== id);
-    saveGallery(updated);
+    saveGalleryLocally(updated);
 
-    if (isFirebaseConfigured && db) {
-      deleteDoc(doc(db, 'gallery', id)).catch((err) => console.error('Firestore delete error:', err));
+    if (isSupabaseConfigured && supabase) {
+      supabase.from('gallery').delete().eq('id', id).then(({ error }) => {
+        if (error) console.error('Supabase gallery delete error:', error);
+      });
     }
   };
 
@@ -219,39 +238,41 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       status: inquiryData.status || 'New',
     };
     const updated = [newInquiry, ...inquiries];
-    saveInquiries(updated);
+    saveInquiriesLocally(updated);
 
-    if (isFirebaseConfigured && db) {
-      setDoc(doc(db, 'inquiries', newInquiry.id!), newInquiry).catch((err) =>
-        console.error('Firestore save error:', err)
-      );
+    if (isSupabaseConfigured && supabase) {
+      supabase.from('inquiries').upsert(newInquiry).then(({ error }) => {
+        if (error) console.error('Supabase inquiry save error:', error);
+      });
     }
   };
 
   const updateInquiryStatus = (id: string, status: 'New' | 'Contacted' | 'Completed') => {
     const updated = inquiries.map((inq) => (inq.id === id ? { ...inq, status } : inq));
-    saveInquiries(updated);
+    saveInquiriesLocally(updated);
 
-    if (isFirebaseConfigured && db) {
-      setDoc(doc(db, 'inquiries', id), { status }, { merge: true }).catch((err) =>
-        console.error('Firestore update error:', err)
-      );
+    if (isSupabaseConfigured && supabase) {
+      supabase.from('inquiries').update({ status }).eq('id', id).then(({ error }) => {
+        if (error) console.error('Supabase inquiry update error:', error);
+      });
     }
   };
 
   const deleteInquiry = (id: string) => {
     const updated = inquiries.filter((inq) => inq.id !== id);
-    saveInquiries(updated);
+    saveInquiriesLocally(updated);
 
-    if (isFirebaseConfigured && db) {
-      deleteDoc(doc(db, 'inquiries', id)).catch((err) => console.error('Firestore delete error:', err));
+    if (isSupabaseConfigured && supabase) {
+      supabase.from('inquiries').delete().eq('id', id).then(({ error }) => {
+        if (error) console.error('Supabase inquiry delete error:', error);
+      });
     }
   };
 
   const resetToDefaults = () => {
-    saveProducts(productsData);
-    saveGallery(galleryItemsData);
-    saveInquiries(initialInquiries);
+    saveProductsLocally(productsData);
+    saveGalleryLocally(galleryItemsData);
+    saveInquiriesLocally(initialInquiries);
   };
 
   return (
@@ -269,7 +290,7 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         updateInquiryStatus,
         deleteInquiry,
         resetToDefaults,
-        isCloudConnected: isFirebaseConfigured,
+        isCloudConnected: isSupabaseConfigured,
       }}
     >
       {children}
