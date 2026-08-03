@@ -103,11 +103,11 @@ export const Footer: React.FC = () => {
             <ul className="space-y-3 text-sm text-gray-300">
               <li className="flex items-start gap-3">
                 <MapPin className="w-5 h-5 text-primary-light shrink-0 mt-0.5" />
-                <span>458 Luxury Living Blvd, Suite 100, Design District, NY 10001</span>
+                <span>15 Constitution Ave, Canberra ACT 2601, Australia</span>
               </li>
               <li className="flex items-center gap-3">
                 <Phone className="w-4 h-4 text-primary-light shrink-0" />
-                <span>+1 (800) 555-7890</span>
+                <span>+61 (02) 6100 7890</span>
               </li>
               <li className="flex items-center gap-3">
                 <Mail className="w-4 h-4 text-primary-light shrink-0" />

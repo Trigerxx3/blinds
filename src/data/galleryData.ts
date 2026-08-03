@@ -7,7 +7,7 @@ export const galleryItemsData: GalleryItem[] = [
     category: 'Living Room',
     image: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=1200&auto=format&fit=crop',
     description: 'Floor-to-ceiling sheer linen curtains paired with motorized blackout drapes in a luxury penthouse.',
-    location: 'Skyline Residences',
+    location: 'Lake Burley Griffin Penthouse, Canberra ACT',
     productsUsed: ['Ethereal Voile Sheer Linen', 'Somfy Smart Motorized Shades']
   },
   {
@@ -16,7 +16,7 @@ export const galleryItemsData: GalleryItem[] = [
     category: 'Office',
     image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1200&auto=format&fit=crop',
     description: 'Solar screen roller blinds installed across 50 corporate office windows to reduce computer screen glare.',
-    location: 'Financial District Tower',
+    location: 'Civic Centre Tower, Canberra ACT',
     productsUsed: ['Architectural Sunscreen Roller Blinds']
   },
   {
@@ -25,7 +25,7 @@ export const galleryItemsData: GalleryItem[] = [
     category: 'Hotel',
     image: 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?q=80&w=1200&auto=format&fit=crop',
     description: 'Royal velvet blackout drapes providing 100% sound and light insulation for guest sleeping comfort.',
-    location: 'Grand Heritage Hotel',
+    location: 'Capital Hill Suites, Canberra ACT',
     productsUsed: ['Royal Heavyweight Blackout Velvet Curtains']
   },
   {
@@ -34,7 +34,7 @@ export const galleryItemsData: GalleryItem[] = [
     category: 'Kitchen',
     image: 'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?q=80&w=1200&auto=format&fit=crop',
     description: 'Water-resistant natural basswood venetian blinds matching white quartz countertops and warm oak cabinets.',
-    location: 'Suburban Villa Kitchen',
+    location: 'Barton Villa Kitchen, Canberra ACT',
     productsUsed: ['Handcrafted Basswood Venetian Blinds']
   },
   {
@@ -43,7 +43,7 @@ export const galleryItemsData: GalleryItem[] = [
     category: 'Bedroom',
     image: 'https://images.unsplash.com/photo-1616594039964-ae9021a400a0?q=80&w=1200&auto=format&fit=crop',
     description: 'Belgian organic linen Roman shades with blackout thermal backing for a tranquil night rest.',
-    location: 'Private Estate Bedroom',
+    location: 'Yarralumla Estate, Canberra ACT',
     productsUsed: ['Belgian Linen Custom Roman Blinds']
   },
   {
@@ -52,7 +52,7 @@ export const galleryItemsData: GalleryItem[] = [
     category: 'Commercial',
     image: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1200&auto=format&fit=crop',
     description: 'Dual-shade zebra blinds enabling smooth lunch-to-dinner ambient lighting adjustments.',
-    location: 'Aura Fine Dining Restaurant',
+    location: 'Kingston Foreshore Dining, Canberra ACT',
     productsUsed: ['Dual-Shade Elegance Zebra Blinds']
   },
   {
@@ -61,7 +61,7 @@ export const galleryItemsData: GalleryItem[] = [
     category: 'Living Room',
     image: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=1200&auto=format&fit=crop',
     description: 'Pinch pleat custom curtains on double recessed ceiling track creating warm acoustic luxury.',
-    location: 'Modern Eco Residence',
+    location: 'Red Hill Eco Residence, Canberra ACT',
     productsUsed: ['French Pinch Pleat Tailored Curtains']
   },
   {
@@ -70,7 +70,7 @@ export const galleryItemsData: GalleryItem[] = [
     category: 'Office',
     image: 'https://images.unsplash.com/photo-1497215728101-856f4ea42174?q=80&w=1200&auto=format&fit=crop',
     description: 'Motorized dual roller blinds with smart sensor integration adjusting automatically to sun position.',
-    location: 'Innovation Tech Hub',
+    location: 'Braddon Innovation Hub, Canberra ACT',
     productsUsed: ['Somfy-Powered Smart Motorized Shades']
   },
   {
@@ -79,7 +79,7 @@ export const galleryItemsData: GalleryItem[] = [
     category: 'Hotel',
     image: 'https://images.unsplash.com/photo-1540518614846-7ede433c5173?q=80&w=1200&auto=format&fit=crop',
     description: 'Floor-to-ceiling sheer drapes framing panoramic harbor views with motorized control.',
-    location: 'Marina Bay Suites',
+    location: 'Campbell Park Suites, Canberra ACT',
     productsUsed: ['Ethereal Voile Sheer Linen Curtains']
   }
 ];

@@ -57,8 +57,8 @@ export default function ContactPage() {
     }, 600);
   };
 
-  const whatsappNumber = '18005557890';
-  const defaultMsg = encodeURIComponent("Hello Royal Capital! I would like to make an inquiry regarding your custom blinds and curtains.");
+  const whatsappNumber = '61261007890';
+  const defaultMsg = encodeURIComponent("Hello Royal Capital Canberra! I would like to make an inquiry regarding your custom blinds and curtains.");
 
   return (
     <div className="py-16 md:py-24 bg-secondary min-h-screen">
@@ -70,7 +70,7 @@ export default function ContactPage() {
             Contact & Showroom
           </h1>
           <p className="text-gray-600 text-sm sm:text-base leading-relaxed">
-            Have questions about fabric options, motorization compatibility, or window quotes? Reach out to our design consultants today.
+            Have a question about custom measurements, fabrics, or motorization? Visit our Canberra showroom or contact our expert design team directly.
           </p>
         </div>
 
@@ -81,8 +81,8 @@ export default function ContactPage() {
               <Phone className="w-5 h-5" />
             </div>
             <h3 className="font-bold text-accent text-sm">Direct Phone</h3>
-            <p className="text-xs text-gray-500">+1 (800) 555-7890</p>
-            <a href="tel:+18005557890" className="text-xs font-semibold text-primary hover:underline block pt-1">
+            <p className="text-xs text-gray-500">+61 (02) 6100 7890</p>
+            <a href="tel:+61261007890" className="text-xs font-semibold text-primary hover:underline block pt-1">
               Call Now →
             </a>
           </div>
@@ -254,23 +254,23 @@ export default function ContactPage() {
             <div className="bg-accent text-white p-8 rounded-3xl shadow-luxury space-y-4">
               <div className="inline-flex items-center gap-1.5 bg-primary/20 text-primary-light px-3 py-1 rounded-full text-xs font-semibold">
                 <MapPin className="w-3.5 h-3.5" />
-                <span>Flagship Showroom</span>
+                <span>Canberra Flagship Showroom</span>
               </div>
-              <h3 className="font-serif text-2xl font-bold">Visit Our Design Atelier</h3>
+              <h3 className="font-serif text-2xl font-bold">Visit Our Canberra Atelier</h3>
               <p className="text-gray-300 text-sm leading-relaxed">
                 Experience full-scale working motorized shades, timber slats, and touch over 500 European fabric bolts.
               </p>
               <div className="pt-2 text-xs text-gray-300 space-y-1 border-t border-white/10">
                 <div className="font-semibold text-white">Address:</div>
-                <div>458 Luxury Living Blvd, Suite 100, Design District, NY 10001</div>
+                <div>15 Constitution Ave, City Centre, Canberra ACT 2601, Australia</div>
               </div>
             </div>
 
             {/* Styled Map Container */}
             <div className="relative aspect-[4/3] rounded-3xl overflow-hidden shadow-card border border-warmGrey bg-gray-200">
               <iframe
-                title="Royal Capital Showroom Location"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.215707164102!2d-73.98657868459418!3d40.74844097932847!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c259a9b3117469%3A0xd134e199a405a163!2sEmpire%20State%20Building!5e0!3m2!1sen!2sus!4v1629837262019!5m2!1sen!2sus"
+                title="Royal Capital Canberra Showroom Location"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d52074.8872652199!2d149.08865365!3d-35.2809368!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6b164d69b05c9023%3A0x500ea6ea7695660!2sCanberra%20ACT%202601%2C%20Australia!5e0!3m2!1sen!2sau!4v1700000000000!5m2!1sen!2sau"
                 width="100%"
                 height="100%"
                 style={{ border: 0, filter: 'contrast(1.05)' }}

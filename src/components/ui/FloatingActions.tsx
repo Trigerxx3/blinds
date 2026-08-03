@@ -4,17 +4,17 @@ import React from 'react';
 import { Phone, MessageCircle } from 'lucide-react';
 
 export const FloatingActions: React.FC = () => {
-  const whatsappNumber = '18005557890';
-  const defaultMsg = encodeURIComponent("Hello Royal Capital! I'm interested in learning more about your custom window blinds and curtains collection.");
+  const whatsappNumber = '61261007890';
+  const defaultMsg = encodeURIComponent("Hello Royal Capital! I'm interested in learning more about your custom window blinds and curtains collection in Canberra.");
 
   return (
     <div className="fixed bottom-6 right-6 z-40 flex flex-col items-end gap-3 pointer-events-auto">
       {/* Floating Direct Call Button */}
       <a
-        href="tel:+18005557890"
+        href="tel:+61261007890"
         aria-label="Call Royal Capital Customer Care"
         className="w-12 h-12 bg-primary hover:bg-primary-dark text-white rounded-full flex items-center justify-center shadow-luxury transition-all transform hover:scale-110"
-        title="Call Royal Capital"
+        title="Call Royal Capital Canberra"
       >
         <Phone className="w-5 h-5" />
       </a>
