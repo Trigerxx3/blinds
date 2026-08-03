@@ -14,7 +14,7 @@ export default function AdminPage() {
     products, galleryItems, inquiries,
     addProduct, updateProduct, deleteProduct,
     addGalleryItem, deleteGalleryItem,
-    updateInquiryStatus, deleteInquiry, resetToDefaults
+    updateInquiryStatus, deleteInquiry, resetToDefaults, seedSupabase
   } = useStore();
 
   // Authentication State
@@ -330,6 +330,19 @@ export default function AdminPage() {
 
         {/* Sidebar Footer Actions */}
         <div className="p-4 border-t border-white/10 space-y-2">
+          <button
+            onClick={async () => {
+              if (confirm('Push all products and gallery items directly into Supabase database?')) {
+                await seedSupabase();
+                alert('Successfully synced and seeded all catalog data to Supabase!');
+              }
+            }}
+            className="w-full flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 text-xs font-semibold transition-colors border border-emerald-500/20"
+          >
+            <Sparkles className="w-3.5 h-3.5" />
+            <span>Sync Data to Supabase</span>
+          </button>
+
           <button
             onClick={() => {
               if (confirm('Reset store to default products and gallery items?')) {

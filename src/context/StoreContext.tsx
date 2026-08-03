@@ -19,6 +19,7 @@ interface StoreContextType {
   updateInquiryStatus: (id: string, status: 'New' | 'Contacted' | 'Completed') => void;
   deleteInquiry: (id: string) => void;
   resetToDefaults: () => void;
+  seedSupabase: () => Promise<void>;
   isCloudConnected: boolean;
 }
 
@@ -61,26 +62,60 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   const [inquiries, setInquiries] = useState<ConsultationFormData[]>(initialInquiries);
   const [isLoaded, setIsLoaded] = useState(false);
 
-  // Fetch initial data from Supabase Cloud DB
+  // Fetch initial data from Supabase Cloud DB & Auto-Seed if empty
   const fetchSupabaseData = async () => {
     if (!supabase) return;
     try {
-      const { data: cloudProducts } = await supabase.from('products').select('*');
-      if (cloudProducts && cloudProducts.length > 0) {
+      // 1. Products Table Sync
+      const { data: cloudProducts, error: prodErr } = await supabase.from('products').select('*');
+      if (prodErr) {
+        console.warn('Supabase products fetch warning:', prodErr.message);
+      } else if (cloudProducts && cloudProducts.length > 0) {
         setProducts(cloudProducts as Product[]);
+      } else {
+        // Table is empty -> auto seed default products
+        await supabase.from('products').upsert(productsData);
+        setProducts(productsData);
       }
 
-      const { data: cloudGallery } = await supabase.from('gallery').select('*');
-      if (cloudGallery && cloudGallery.length > 0) {
+      // 2. Gallery Table Sync
+      const { data: cloudGallery, error: galErr } = await supabase.from('gallery').select('*');
+      if (galErr) {
+        console.warn('Supabase gallery fetch warning:', galErr.message);
+      } else if (cloudGallery && cloudGallery.length > 0) {
         setGalleryItems(cloudGallery as GalleryItem[]);
+      } else {
+        // Table is empty -> auto seed default gallery
+        await supabase.from('gallery').upsert(galleryItemsData);
+        setGalleryItems(galleryItemsData);
       }
 
-      const { data: cloudInquiries } = await supabase.from('inquiries').select('*');
-      if (cloudInquiries && cloudInquiries.length > 0) {
+      // 3. Inquiries Table Sync
+      const { data: cloudInquiries, error: inqErr } = await supabase.from('inquiries').select('*');
+      if (inqErr) {
+        console.warn('Supabase inquiries fetch warning:', inqErr.message);
+      } else if (cloudInquiries && cloudInquiries.length > 0) {
         setInquiries(cloudInquiries as ConsultationFormData[]);
+      } else {
+        // Table is empty -> auto seed default inquiries
+        await supabase.from('inquiries').upsert(initialInquiries);
+        setInquiries(initialInquiries);
       }
     } catch (err) {
       console.error('Supabase fetch error:', err);
+    }
+  };
+
+  // Manual trigger to force seed all data into Supabase
+  const seedSupabase = async () => {
+    if (!supabase) return;
+    try {
+      await supabase.from('products').upsert(products);
+      await supabase.from('gallery').upsert(galleryItems);
+      await supabase.from('inquiries').upsert(inquiries);
+      await fetchSupabaseData();
+    } catch (err) {
+      console.error('Failed to seed Supabase:', err);
     }
   };
 
@@ -273,6 +308,9 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     saveProductsLocally(productsData);
     saveGalleryLocally(galleryItemsData);
     saveInquiriesLocally(initialInquiries);
+    if (isSupabaseConfigured) {
+      seedSupabase();
+    }
   };
 
   return (
@@ -290,6 +328,7 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         updateInquiryStatus,
         deleteInquiry,
         resetToDefaults,
+        seedSupabase,
         isCloudConnected: isSupabaseConfigured,
       }}
     >
