@@ -89,18 +89,43 @@ export default function AdminPage() {
     location: 'Residential Penthouse',
   });
 
-  // Handler for uploading local image files from PC
+  // Handler for uploading and compressing local image files from PC
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>, isGallery = false) => {
     const file = e.target.files?.[0];
     if (file) {
       const reader = new FileReader();
-      reader.onloadend = () => {
-        const base64Data = reader.result as string;
-        if (isGallery) {
-          setGalleryForm((prev) => ({ ...prev, image: base64Data }));
-        } else {
-          setProductForm((prev) => ({ ...prev, image: base64Data, gallery: [base64Data] }));
-        }
+      reader.onload = (event) => {
+        const img = new window.Image();
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          const maxDim = 1200;
+          let width = img.width;
+          let height = img.height;
+
+          if (width > maxDim || height > maxDim) {
+            if (width > height) {
+              height = Math.round((height * maxDim) / width);
+              width = maxDim;
+            } else {
+              width = Math.round((width * maxDim) / height);
+              height = maxDim;
+            }
+          }
+
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext('2d');
+          ctx?.drawImage(img, 0, 0, width, height);
+
+          const compressedDataUrl = canvas.toDataURL('image/jpeg', 0.82);
+
+          if (isGallery) {
+            setGalleryForm((prev) => ({ ...prev, image: compressedDataUrl }));
+          } else {
+            setProductForm((prev) => ({ ...prev, image: compressedDataUrl, gallery: [compressedDataUrl] }));
+          }
+        };
+        img.src = event.target?.result as string;
       };
       reader.readAsDataURL(file);
     }
