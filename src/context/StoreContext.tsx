@@ -141,6 +141,9 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     localStorage.setItem('rc_inquiries', JSON.stringify(newInquiries));
   };
 
+  // Helper to sanitize objects for Firestore (removes undefined values)
+  const cleanObj = <T,>(obj: T): T => JSON.parse(JSON.stringify(obj));
+
   // Actions
   const addProduct = (productData: Omit<Product, 'id'>): Product => {
     const slug = productData.name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
@@ -152,7 +155,7 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     saveProducts(updated);
 
     if (isFirebaseConfigured && db) {
-      setDoc(doc(db, 'products', newProduct.id), newProduct).catch((err) =>
+      setDoc(doc(db, 'products', newProduct.id), cleanObj(newProduct)).catch((err) =>
         console.error('Firestore save error:', err)
       );
     }
@@ -167,7 +170,7 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     saveProducts(updated);
 
     if (isFirebaseConfigured && db && merged) {
-      setDoc(doc(db, 'products', id), merged, { merge: true }).catch((err) =>
+      setDoc(doc(db, 'products', id), cleanObj(merged), { merge: true }).catch((err) =>
         console.error('Firestore update error:', err)
       );
     }
@@ -191,7 +194,7 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     saveGallery(updated);
 
     if (isFirebaseConfigured && db) {
-      setDoc(doc(db, 'gallery', newItem.id), newItem).catch((err) =>
+      setDoc(doc(db, 'gallery', newItem.id), cleanObj(newItem)).catch((err) =>
         console.error('Firestore save error:', err)
       );
     }
