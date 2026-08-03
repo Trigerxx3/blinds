@@ -16,6 +16,7 @@
 * {
   box-sizing: border-box;
   scroll-behavior: smooth;
+  -webkit-tap-highlight-color: transparent;
 }
 
 body {
@@ -24,15 +25,17 @@ body {
   color: #3D3D3D;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 h1, h2, h3, h4, .font-serif {
   font-family: var(--font-playfair);
 }
 
-/* Custom Luxury Scrollbar */
+/* Custom Mobile & Desktop Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
+  height: 6px;
 }
 ::-webkit-scrollbar-track {
   background: #F7F5F2;
@@ -70,11 +73,12 @@ h1, h2, h3, h4, .font-serif {
 /* Masonry grid utility */
 .masonry-grid {
   column-count: 1;
-  column-gap: 1.5rem;
+  column-gap: 1.25rem;
 }
 @media (min-width: 640px) {
   .masonry-grid {
     column-count: 2;
+    column-gap: 1.5rem;
   }
 }
 @media (min-width: 1024px) {
@@ -84,5 +88,14 @@ h1, h2, h3, h4, .font-serif {
 }
 .masonry-item {
   break-inside: avoid;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.25rem;
+}
+
+/* Mobile Scrollbar Hide Utility */
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }

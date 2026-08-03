@@ -98,7 +98,7 @@ export default function CollectionsPage() {
           </div>
 
           {/* Category Tabs */}
-          <div className="pt-4 border-t border-gray-100 flex items-center gap-2 overflow-x-auto pb-2 scrollbar-thin">
+          <div className="pt-4 border-t border-gray-100 flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
             {categories.map((cat) => {
               const isActive = selectedCategory === cat;
               return (
