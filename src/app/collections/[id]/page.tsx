@@ -156,22 +156,12 @@ export default function ProductDetailPage() {
 
             {/* Direct Inquiry CTAs */}
             <div className="pt-4 space-y-3">
-              <a
-                href={`https://wa.me/${whatsappNumber}?text=${whatsappMsg}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full py-4 bg-[#25D366] hover:bg-[#20ba59] text-white font-semibold text-xs uppercase tracking-wider rounded-2xl shadow-luxury transition-all flex items-center justify-center gap-2"
-              >
-                <MessageCircle className="w-4 h-4 fill-current" />
-                <span>Inquire About This Model on WhatsApp</span>
-              </a>
-
               <Link
                 href="/contact"
-                className="w-full py-3.5 bg-secondary hover:bg-warmGrey text-accent font-semibold text-xs uppercase tracking-wider rounded-2xl border border-warmGrey flex items-center justify-center gap-2 transition-all"
+                className="w-full py-4 bg-primary hover:bg-primary-dark text-white font-semibold text-xs uppercase tracking-wider rounded-2xl shadow-luxury flex items-center justify-center gap-2 transition-all"
               >
-                <Mail className="w-4 h-4 text-primary" />
-                <span>Send Showroom Inquiry Email</span>
+                <Mail className="w-4 h-4 text-white" />
+                <span>Inquire About This Model via Email</span>
               </Link>
 
               <div className="flex items-center justify-center gap-2 text-xs text-gray-500 pt-1">

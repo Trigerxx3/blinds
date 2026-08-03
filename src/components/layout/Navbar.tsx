@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu, X, Phone, Mail, Sparkles } from 'lucide-react';
+import { Menu, X, Mail, Sparkles } from 'lucide-react';
 
 export const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -90,14 +90,6 @@ export const Navbar: React.FC = () => {
 
           {/* Right Action Buttons */}
           <div className="hidden lg:flex items-center gap-4">
-            <a
-              href="tel:+61261007890"
-              className="flex items-center gap-2 text-xs font-semibold text-accent hover:text-primary transition-colors px-3.5 py-2 rounded-xl bg-secondary"
-            >
-              <Phone className="w-4 h-4 text-primary" />
-              <span>+61 (02) 6100 7890</span>
-            </a>
-
             <Link
               href="/contact"
               className="flex items-center gap-2 bg-primary hover:bg-primary-dark text-white text-xs uppercase tracking-wider font-semibold px-5 py-2.5 rounded-full shadow-luxury hover:shadow-glow transition-all transform hover:-translate-y-0.5"
@@ -138,13 +130,6 @@ export const Navbar: React.FC = () => {
               );
             })}
             <div className="pt-3 border-t border-gray-100 flex flex-col gap-2.5">
-              <a
-                href="tel:+61261007890"
-                className="flex items-center justify-center gap-2 text-sm font-semibold text-accent py-2.5 rounded-xl bg-secondary"
-              >
-                <Phone className="w-4 h-4 text-primary" />
-                <span>Call Us: +61 (02) 6100 7890</span>
-              </a>
               <Link
                 href="/contact"
                 onClick={() => setMobileMenuOpen(false)}

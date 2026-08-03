@@ -106,10 +106,6 @@ export const Footer: React.FC = () => {
                 <span>15 Constitution Ave, Canberra ACT 2601, Australia</span>
               </li>
               <li className="flex items-center gap-3">
-                <Phone className="w-4 h-4 text-primary-light shrink-0" />
-                <span>+61 (02) 6100 7890</span>
-              </li>
-              <li className="flex items-center gap-3">
                 <Mail className="w-4 h-4 text-primary-light shrink-0" />
                 <a href="mailto:royalcapitalcurtains@gmail.com" className="hover:text-primary-light transition-colors">
                   royalcapitalcurtains@gmail.com

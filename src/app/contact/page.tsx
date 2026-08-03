@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Phone, Mail, MapPin, Clock, MessageCircle, Send, CheckCircle2, Sparkles, ExternalLink } from 'lucide-react';
+import { Mail, MapPin, Clock, Send, CheckCircle2, Sparkles, ExternalLink } from 'lucide-react';
 import { useStore } from '@/context/StoreContext';
 
 export default function ContactPage() {
@@ -75,52 +75,25 @@ export default function ContactPage() {
         </div>
 
         {/* Contact Info Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          <div className="bg-white p-6 rounded-3xl border border-warmGrey shadow-card space-y-3">
-            <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center">
-              <Phone className="w-5 h-5" />
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-4xl mx-auto">
+          <div className="bg-white p-6 sm:p-8 rounded-3xl border border-warmGrey shadow-card space-y-3">
+            <div className="w-12 h-12 rounded-2xl bg-primary/10 text-primary flex items-center justify-center">
+              <Mail className="w-6 h-6" />
             </div>
-            <h3 className="font-bold text-accent text-sm">Direct Phone</h3>
-            <p className="text-xs text-gray-500">+61 (02) 6100 7890</p>
-            <a href="tel:+61261007890" className="text-xs font-semibold text-primary hover:underline block pt-1">
-              Call Now →
-            </a>
-          </div>
-
-          <div className="bg-white p-6 rounded-3xl border border-warmGrey shadow-card space-y-3">
-            <div className="w-10 h-10 rounded-xl bg-[#25D366]/10 text-[#25D366] flex items-center justify-center">
-              <MessageCircle className="w-5 h-5 fill-current" />
-            </div>
-            <h3 className="font-bold text-accent text-sm">WhatsApp Chat</h3>
-            <p className="text-xs text-gray-500">Instant answers from our design desk.</p>
-            <a
-              href={`https://wa.me/${whatsappNumber}?text=${defaultMsg}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-xs font-semibold text-[#25D366] hover:underline block pt-1"
-            >
-              Start WhatsApp Chat →
-            </a>
-          </div>
-
-          <div className="bg-white p-6 rounded-3xl border border-warmGrey shadow-card space-y-3">
-            <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center">
-              <Mail className="w-5 h-5" />
-            </div>
-            <h3 className="font-bold text-accent text-sm">Email Consultation</h3>
-            <a href={`mailto:${targetEmail}`} className="text-xs text-gray-600 hover:text-primary hover:underline block font-semibold">
+            <h3 className="font-bold text-accent text-base">Email Consultation</h3>
+            <a href={`mailto:${targetEmail}`} className="text-sm text-primary font-semibold hover:underline block">
               {targetEmail}
             </a>
-            <span className="text-xs font-semibold text-primary block pt-1">Responds in &lt; 2 hrs</span>
+            <span className="text-xs text-gray-400 block pt-1">Our design consultants respond within 2 hours</span>
           </div>
 
-          <div className="bg-white p-6 rounded-3xl border border-warmGrey shadow-card space-y-3">
-            <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center">
-              <Clock className="w-5 h-5" />
+          <div className="bg-white p-6 sm:p-8 rounded-3xl border border-warmGrey shadow-card space-y-3">
+            <div className="w-12 h-12 rounded-2xl bg-primary/10 text-primary flex items-center justify-center">
+              <Clock className="w-6 h-6" />
             </div>
-            <h3 className="font-bold text-accent text-sm">Business Hours</h3>
-            <p className="text-xs text-gray-500">Mon - Sat: 9:00 AM - 7:00 PM</p>
-            <p className="text-xs text-gray-400">Sunday: By Appointment</p>
+            <h3 className="font-bold text-accent text-base">Canberra Showroom Hours</h3>
+            <p className="text-sm text-gray-600 font-semibold">Mon - Sat: 9:00 AM - 7:00 PM</p>
+            <p className="text-xs text-gray-400">Sunday: By Appointment Only</p>
           </div>
         </div>
 
