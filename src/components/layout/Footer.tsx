@@ -98,12 +98,12 @@ export const Footer: React.FC = () => {
           {/* Column 4: Contact & Working Hours */}
           <div className="space-y-4">
             <h3 className="font-serif text-lg font-semibold text-white mb-5 pb-2 border-b border-white/10">
-              Showroom Contact
+              Store Contact
             </h3>
             <ul className="space-y-3 text-sm text-gray-300">
               <li className="flex items-start gap-3">
                 <MapPin className="w-5 h-5 text-primary-light shrink-0 mt-0.5" />
-                <span>15 Constitution Ave, Canberra ACT 2601, Australia</span>
+                <span>Online Store based in Canberra, ACT, Australia</span>
               </li>
               <li className="flex items-center gap-3">
                 <Mail className="w-4 h-4 text-primary-light shrink-0" />
@@ -114,9 +114,9 @@ export const Footer: React.FC = () => {
               <li className="flex items-start gap-3 pt-2">
                 <Clock className="w-4 h-4 text-primary-light shrink-0 mt-0.5" />
                 <div>
-                  <div className="font-medium text-white">Showroom Hours:</div>
+                  <div className="font-medium text-white">Customer Support Hours:</div>
                   <div className="text-xs text-gray-400">Mon - Sat: 9:00 AM - 7:00 PM</div>
-                  <div className="text-xs text-gray-400">Sunday: By Appointment</div>
+                  <div className="text-xs text-gray-400">Sunday: Online Inquiries Welcome</div>
                 </div>
               </li>
             </ul>

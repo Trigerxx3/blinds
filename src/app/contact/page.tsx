@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Mail, MapPin, Clock, Send, CheckCircle2, Sparkles, ExternalLink } from 'lucide-react';
+import { Mail, MapPin, Clock, Send, CheckCircle2, Sparkles, ExternalLink, Globe, Truck } from 'lucide-react';
 import { useStore } from '@/context/StoreContext';
 
 export default function ContactPage() {
@@ -57,9 +57,6 @@ export default function ContactPage() {
     }, 600);
   };
 
-  const whatsappNumber = '61261007890';
-  const defaultMsg = encodeURIComponent("Hello Royal Capital Canberra! I would like to make an inquiry regarding your custom blinds and curtains.");
-
   return (
     <div className="py-16 md:py-24 bg-secondary min-h-screen">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
@@ -67,10 +64,10 @@ export default function ContactPage() {
         <div className="text-center max-w-3xl mx-auto space-y-4">
           <span className="text-xs uppercase tracking-widest text-primary font-bold">Get In Touch</span>
           <h1 className="font-serif text-4xl sm:text-6xl font-bold text-accent">
-            Contact & Showroom
+            Contact & Support
           </h1>
           <p className="text-gray-600 text-sm sm:text-base leading-relaxed">
-            Have a question about custom measurements, fabrics, or motorization? Visit our Canberra showroom or contact our expert design team directly.
+            Have a question about custom measurements, fabrics, or motorization? Royal Capital is an online store based in Canberra. Contact our expert design team directly.
           </p>
         </div>
 
@@ -91,13 +88,13 @@ export default function ContactPage() {
             <div className="w-12 h-12 rounded-2xl bg-primary/10 text-primary flex items-center justify-center">
               <Clock className="w-6 h-6" />
             </div>
-            <h3 className="font-bold text-accent text-base">Canberra Showroom Hours</h3>
+            <h3 className="font-bold text-accent text-base">Customer Support Hours</h3>
             <p className="text-sm text-gray-600 font-semibold">Mon - Sat: 9:00 AM - 7:00 PM</p>
-            <p className="text-xs text-gray-400">Sunday: By Appointment Only</p>
+            <p className="text-xs text-gray-400">Sunday: Online Inquiries Welcome</p>
           </div>
         </div>
 
-        {/* Main Grid: Form & Map */}
+        {/* Main Grid: Form & Info */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
           {/* Left Column: Form */}
           <div className="lg:col-span-7 bg-white p-8 md:p-10 rounded-3xl shadow-card border border-warmGrey">
@@ -222,34 +219,55 @@ export default function ContactPage() {
             )}
           </div>
 
-          {/* Right Column: Styled Map Preview & Showroom Address */}
+          {/* Right Column: Online Store Info & Regional Service */}
           <div className="lg:col-span-5 space-y-6">
             <div className="bg-accent text-white p-8 rounded-3xl shadow-luxury space-y-4">
               <div className="inline-flex items-center gap-1.5 bg-primary/20 text-primary-light px-3 py-1 rounded-full text-xs font-semibold">
-                <MapPin className="w-3.5 h-3.5" />
-                <span>Canberra Flagship Showroom</span>
+                <Globe className="w-3.5 h-3.5" />
+                <span>Online Store Based in Canberra</span>
               </div>
-              <h3 className="font-serif text-2xl font-bold">Visit Our Canberra Atelier</h3>
+              <h3 className="font-serif text-2xl font-bold">Canberra-Based Online Specialist</h3>
               <p className="text-gray-300 text-sm leading-relaxed">
-                Experience full-scale working motorized shades, timber slats, and touch over 500 European fabric bolts.
+                Royal Capital is a premier online store operating out of Canberra, ACT. We offer virtual design consultations, fabric sample deliveries to your door, and custom measure-to-fit window solutions.
               </p>
               <div className="pt-2 text-xs text-gray-300 space-y-1 border-t border-white/10">
-                <div className="font-semibold text-white">Address:</div>
-                <div>15 Constitution Ave, City Centre, Canberra ACT 2601, Australia</div>
+                <div className="font-semibold text-white">Location:</div>
+                <div>Online Store based in Canberra, ACT, Australia</div>
               </div>
             </div>
 
-            {/* Styled Map Container */}
-            <div className="relative aspect-[4/3] rounded-3xl overflow-hidden shadow-card border border-warmGrey bg-gray-200">
-              <iframe
-                title="Royal Capital Canberra Showroom Location"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d52074.8872652199!2d149.08865365!3d-35.2809368!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6b164d69b05c9023%3A0x500ea6ea7695660!2sCanberra%20ACT%202601%2C%20Australia!5e0!3m2!1sen!2sau!4v1700000000000!5m2!1sen!2sau"
-                width="100%"
-                height="100%"
-                style={{ border: 0, filter: 'contrast(1.05)' }}
-                allowFullScreen={false}
-                loading="lazy"
-              />
+            {/* Online Service Highlights Card */}
+            <div className="bg-white p-8 rounded-3xl shadow-card border border-warmGrey space-y-4">
+              <h4 className="font-serif text-xl font-bold text-accent">How Our Online Service Works</h4>
+              <ul className="space-y-4 text-xs text-gray-600">
+                <li className="flex items-start gap-3">
+                  <div className="w-7 h-7 rounded-lg bg-primary/10 text-primary flex items-center justify-center shrink-0 font-bold text-sm">
+                    1
+                  </div>
+                  <div>
+                    <strong className="text-accent block text-sm mb-0.5">Online & Remote Consultation</strong>
+                    Speak with our Canberra-based window specialists to select fabrics and verify window dimensions.
+                  </div>
+                </li>
+                <li className="flex items-start gap-3">
+                  <div className="w-7 h-7 rounded-lg bg-primary/10 text-primary flex items-center justify-center shrink-0 font-bold text-sm">
+                    2
+                  </div>
+                  <div>
+                    <strong className="text-accent block text-sm mb-0.5">Custom Tailored to Order</strong>
+                    Every blind and drape is crafted to your exact specifications in our precision workshop.
+                  </div>
+                </li>
+                <li className="flex items-start gap-3">
+                  <div className="w-7 h-7 rounded-lg bg-primary/10 text-primary flex items-center justify-center shrink-0 font-bold text-sm">
+                    3
+                  </div>
+                  <div>
+                    <strong className="text-accent block text-sm mb-0.5">Direct Delivery & Installation Support</strong>
+                    Fast delivery across Canberra, ACT, and surrounding regional areas with complete installation guidance.
+                  </div>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
